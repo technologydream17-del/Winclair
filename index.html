@@ -1,0 +1,633 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Sans:wght@400;500&display=swap');
+
+  .quiz-wrap {
+    font-family: 'DM Sans', sans-serif;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 0 2rem;
+    color: var(--color-text-primary);
+  }
+
+  .quiz-header {
+    background: #0a1628;
+    border-radius: 16px;
+    padding: 2rem 2rem 1.5rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .quiz-header::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: rgba(0,120,212,0.15);
+  }
+
+  .quiz-header::after {
+    content: '';
+    position: absolute;
+    bottom: -20px; left: 30%;
+    width: 100px; height: 100px;
+    border-radius: 50%;
+    background: rgba(0,120,212,0.08);
+  }
+
+  .quiz-badge {
+    display: inline-block;
+    background: rgba(0,120,212,0.3);
+    color: #60aaff;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 0.75rem;
+    font-family: 'Sora', sans-serif;
+  }
+
+  .quiz-header h1 {
+    font-family: 'Sora', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 0.5rem;
+    line-height: 1.3;
+  }
+
+  .quiz-header p {
+    font-size: 14px;
+    color: rgba(255,255,255,0.6);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .quiz-meta {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .quiz-meta span {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .progress-bar {
+    background: var(--color-background-secondary);
+    border-radius: 8px;
+    height: 6px;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: #0078D4;
+    border-radius: 8px;
+    transition: width 0.4s ease;
+  }
+
+  .progress-label {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    margin-bottom: 6px;
+    font-family: 'Sora', sans-serif;
+  }
+
+  .question-block {
+    display: none;
+    animation: fadeSlide 0.3s ease;
+  }
+
+  .question-block.active { display: block; }
+
+  @keyframes fadeSlide {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .q-number {
+    font-size: 11px;
+    color: #0078D4;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-family: 'Sora', sans-serif;
+    margin-bottom: 8px;
+  }
+
+  .q-text {
+    font-family: 'Sora', sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: 1.25rem;
+    line-height: 1.4;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .option-btn {
+    background: var(--color-background-primary);
+    border: 1px solid var(--color-border-tertiary);
+    border-radius: 12px;
+    padding: 14px 18px;
+    text-align: left;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--color-text-primary);
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.15s ease;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .option-btn:hover {
+    border-color: #0078D4;
+    background: rgba(0,120,212,0.05);
+  }
+
+  .option-btn.selected {
+    border-color: #0078D4;
+    background: rgba(0,120,212,0.08);
+    color: var(--color-text-primary);
+  }
+
+  .option-letter {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--color-background-secondary);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    flex-shrink: 0;
+    font-family: 'Sora', sans-serif;
+    transition: all 0.15s ease;
+  }
+
+  .option-btn.selected .option-letter {
+    background: #0078D4;
+    color: #fff;
+  }
+
+  .nav-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5rem;
+  }
+
+  .btn-next {
+    background: #0078D4;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 28px;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'Sora', sans-serif;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  .btn-next.enabled {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .btn-next.enabled:hover { background: #005fa3; }
+
+  .result-block {
+    display: none;
+    animation: fadeSlide 0.4s ease;
+  }
+
+  .result-block.active { display: block; }
+
+  .result-card {
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 1.25rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .result-level {
+    font-family: 'Sora', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .result-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    line-height: 1.25;
+  }
+
+  .result-desc {
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+
+  .result-score-bar {
+    background: rgba(255,255,255,0.15);
+    border-radius: 6px;
+    height: 6px;
+    margin-bottom: 6px;
+    overflow: hidden;
+  }
+
+  .result-score-fill {
+    height: 100%;
+    background: rgba(255,255,255,0.7);
+    border-radius: 6px;
+  }
+
+  .result-score-label {
+    font-size: 12px;
+    opacity: 0.7;
+    font-family: 'Sora', sans-serif;
+  }
+
+  .pitch-card {
+    background: var(--color-background-primary);
+    border: 1px solid var(--color-border-tertiary);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .pitch-card h3 {
+    font-family: 'Sora', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: var(--color-text-primary);
+  }
+
+  .pitch-list {
+    list-style: none;
+    padding: 0; margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .pitch-list li {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    line-height: 1.5;
+  }
+
+  .check-icon {
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: rgba(0,120,212,0.15);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .cta-btn {
+    width: 100%;
+    background: #0078D4;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 16px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: 'Sora', sans-serif;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    margin-top: 0.5rem;
+  }
+
+  .cta-btn:hover { background: #005fa3; }
+
+  .bonus-strip {
+    background: var(--color-background-secondary);
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    text-align: center;
+    margin-top: 0.75rem;
+  }
+
+  .bonus-strip strong {
+    color: var(--color-text-primary);
+  }
+
+  .restart-btn {
+    background: transparent;
+    border: 1px solid var(--color-border-tertiary);
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.15s;
+  }
+
+  .restart-btn:hover {
+    border-color: var(--color-border-secondary);
+    color: var(--color-text-primary);
+  }
+</style>
+
+<div class="quiz-wrap">
+  <h2 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">Quiz : Quel niveau Windows 11 êtes-vous ? — Lead magnet WINCLAIR</h2>
+
+  <div class="quiz-header">
+    <div class="quiz-badge">Quiz gratuit — WINCLAIR</div>
+    <h1>Quel niveau Windows 11<br>êtes-vous vraiment ?</h1>
+    <p>Découvrez votre profil en 7 questions et recevez un plan d'action personnalisé.</p>
+    <div class="quiz-meta">
+      <span>⏱ 2 minutes</span>
+      <span>✦ 7 questions</span>
+      <span>✦ Résultat immédiat</span>
+    </div>
+  </div>
+
+  <div id="quiz-body">
+    <div class="progress-label" id="prog-label">Question 1 sur 7</div>
+    <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:14%"></div></div>
+
+    <!-- Q1 -->
+    <div class="question-block active" data-q="0">
+      <div class="q-number">Question 01</div>
+      <div class="q-text">Quand vous allumez votre PC, vous vous sentez...</div>
+      <div class="options">
+        <button class="option-btn" data-score="0" onclick="select(this)"><span class="option-letter">A</span>Perdu — je clique au hasard pour trouver ce dont j'ai besoin</button>
+        <button class="option-btn" data-score="1" onclick="select(this)"><span class="option-letter">B</span>À l'aise pour les tâches de base, mais bloqué dès que ça se complique</button>
+        <button class="option-btn" data-score="2" onclick="select(this)"><span class="option-letter">C</span>Confiant — je sais où chercher, mais j'ai encore des zones d'ombre</button>
+        <button class="option-btn" data-score="3" onclick="select(this)"><span class="option-letter">D</span>Très à l'aise — je configure tout moi-même sans aide</button>
+      </div>
+      <div class="nav-row">
+        <span style="font-size:12px;color:var(--color-text-secondary)">Sélectionnez une réponse</span>
+        <button class="btn-next" id="next-0" onclick="nextQ(0)">Suivant →</button>
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="question-block" data-q="1">
+      <div class="q-number">Question 02</div>
+      <div class="q-text">Votre PC devient lent. Que faites-vous en premier ?</div>
+      <div class="options">
+        <button class="option-btn" data-score="0" onclick="select(this)"><span class="option-letter">A</span>J'attends ou je redémarre sans vraiment comprendre pourquoi</button>
+        <button class="option-btn" data-score="1" onclick="select(this)"><span class="option-letter">B</span>Je supprime quelques fichiers ou je vide la corbeille</button>
+        <button class="option-btn" data-score="2" onclick="select(this)"><span class="option-letter">C</span>Je vérifie le Gestionnaire des tâches pour voir ce qui consomme les ressources</button>
+        <button class="option-btn" data-score="3" onclick="select(this)"><span class="option-letter">D</span>Je nettoie les programmes au démarrage, libère la RAM et optimise le disque</button>
+      </div>
+      <div class="nav-row">
+        <button class="restart-btn" onclick="prevQ(1)">← Retour</button>
+        <button class="btn-next" id="next-1" onclick="nextQ(1)">Suivant →</button>
+      </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="question-block" data-q="2">
+      <div class="q-number">Question 03</div>
+      <div class="q-text">Avez-vous déjà utilisé le menu Paramètres de Windows 11 ?</div>
+      <div class="options">
+        <button class="option-btn" data-score="0" onclick="select(this)"><span class="option-letter">A</span>Non, je ne sais pas comment y accéder</button>
+        <button class="option-btn" data-score="1" onclick="select(this)"><span class="option-letter">B</span>Oui, pour changer le fond d'écran ou le volume</button>
+        <button class="option-btn" data-score="2" onclick="select(this)"><span class="option-letter">C</span>Oui, je gère les comptes utilisateurs et le Wi-Fi</button>
+        <button class="option-btn" data-score="3" onclick="select(this)"><span class="option-letter">D</span>Oui, j'y configure aussi les mises à jour, la sécurité et les périphériques</button>
+      </div>
+      <div class="nav-row">
+        <button class="restart-btn" onclick="prevQ(2)">← Retour</button>
+        <button class="btn-next" id="next-2" onclick="nextQ(2)">Suivant →</button>
+      </div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="question-block" data-q="3">
+      <div class="q-number">Question 04</div>
+      <div class="q-text">Un ami vous dit "fais Ctrl + Shift + Esc". Vous savez à quoi ça sert ?</div>
+      <div class="options">
+        <button class="option-btn" data-score="0" onclick="select(this)"><span class="option-letter">A</span>Pas du tout — les raccourcis clavier, ce n'est pas pour moi</button>
+        <button class="option-btn" data-score="1" onclick="select(this)"><span class="option-letter">B</span>Je connais Ctrl+C et Ctrl+V, mais c'est à peu près tout</button>
+        <button class="option-btn" data-score="2" onclick="select(this)"><span class="option-letter">C</span>Oui, c'est le Gestionnaire des tâches — j'en connais une dizaine en tout</button>
+        <button class="option-btn" data-score="3" onclick="select(this)"><span class="option-letter">D</span>Bien sûr, et j'utilise aussi Win+X, Win+I, Alt+F4 au quotidien</button>
+      </div>
+      <div class="nav-row">
+        <button class="restart-btn" onclick="prevQ(3)">← Retour</button>
+        <button class="btn-next" id="next-3" onclick="nextQ(3)">Suivant →</button>
+      </div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="question-block" data-q="4">
+      <div class="q-number">Question 05</div>
+      <div class="q-text">Votre PC a eu un écran bleu (BSOD). Quelle a été votre réaction ?</div>
+      <div class="options">
+        <button class="option-btn" data-score="0" onclick="select(this)"><span class="option-letter">A</span>Panique totale — j'ai appelé quelqu'un ou porté le PC en réparation</button>
+        <button class="option-btn" data-score="1" onclick="select(this)"><span class="option-letter">B</span>J'ai redémarré et espéré que ça ne revienne pas</button>
+        <button class="option-btn" data-score="2" onclick="select(this)"><span class="option-letter">C</span>J'ai noté le code d'erreur et cherché sur internet</button>
+        <button class="option-btn" data-score="3" onclick="select(this)"><span class="option-letter">D</span>J'ai diagnostiqué via l'observateur d'événements et résolu le problème moi-même</button>
+      </div>
+      <div class="nav-row">
+        <button class="restart-btn" onclick="prevQ(4)">← Retour</button>
+        <button class="btn-next" id="next-4" onclick="nextQ(4)">Suivant →</button>
+      </div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="question-block" data-q="5">
+      <div class="q-number">Question 06</div>
+      <div class="q-text">Avez-vous une licence Windows 11 originale sur votre PC ?</div>
+      <div class="options">
+        <button class="option-btn" data-score="0" onclick="select(this)"><span class="option-letter">A</span>Je ne sais pas — je n'ai jamais vérifié</button>
+        <button class="option-btn" data-score="1" onclick="select(this)"><span class="option-letter">B</span>Non, j'ai une version craquée — je ne savais pas que c'était un risque</button>
+        <button class="option-btn" data-score="2" onclick="select(this)"><span class="option-letter">C</span>Oui, je crois que oui, mais je n'ai pas cherché à confirmer</button>
+        <button class="option-btn" data-score="3" onclick="select(this)"><span class="option-letter">D</span>Oui, et je sais exactement où trouver ma clé de licence si besoin</button>
+      </div>
+      <div class="nav-row">
+        <button class="restart-btn" onclick="prevQ(5)">← Retour</button>
+        <button class="btn-next" id="next-5" onclick="nextQ(5)">Suivant →</button>
+      </div>
+    </div>
+
+    <!-- Q7 -->
+    <div class="question-block" data-q="6">
+      <div class="q-number">Question 07</div>
+      <div class="q-text">Pourquoi voulez-vous vraiment maîtriser Windows 11 ?</div>
+      <div class="options">
+        <button class="option-btn" data-score="0" onclick="select(this)"><span class="option-letter">A</span>Pour arrêter de dépendre des techniciens à chaque problème</button>
+        <button class="option-btn" data-score="1" onclick="select(this)"><span class="option-letter">B</span>Pour être plus productif dans mon travail ou mes études</button>
+        <button class="option-btn" data-score="2" onclick="select(this)"><span class="option-letter">C</span>Pour gérer le PC de mon entreprise ou de mes clients</button>
+        <button class="option-btn" data-score="3" onclick="select(this)"><span class="option-letter">D</span>Pour tout maîtriser de A à Z et ne jamais être bloqué</button>
+      </div>
+      <div class="nav-row">
+        <button class="restart-btn" onclick="prevQ(6)">← Retour</button>
+        <button class="btn-next" id="next-6" onclick="showResult()">Voir mon résultat →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div id="result-area" style="display:none;">
+    <div id="result-debutant" class="result-block">
+      <div class="result-card" style="background:#0a1628;color:#fff;">
+        <div class="result-level" style="color:#60aaff;">Niveau 1 — Débutant</div>
+        <div class="result-title">L'Explorateur Hésitant</div>
+        <div class="result-desc" style="color:rgba(255,255,255,0.75);">Windows 11 vous semble encore complexe et vous évitez les manipulations par peur de "tout casser". C'est tout à fait normal — et c'est exactement là que WINCLAIR vous prend en main, étape par étape.</div>
+        <div class="result-score-bar"><div class="result-score-fill" style="width:20%"></div></div>
+        <div class="result-score-label">Potentiel de progression : très élevé</div>
+      </div>
+      <div class="pitch-card">
+        <h3>Ce que WINCLAIR va changer pour vous</h3>
+        <ul class="pitch-list">
+          <li><div class="check-icon" style="background:rgba(0,120,212,0.15);color:#0078D4;font-size:10px;font-weight:700;">✓</div>Vous apprendrez à naviguer dans Windows 11 sans stress en moins de 2 jours</li>
+          <li><div class="check-icon" style="background:rgba(0,120,212,0.15);color:#0078D4;font-size:10px;font-weight:700;">✓</div>Fini les appels au technicien pour des problèmes simples</li>
+          <li><div class="check-icon" style="background:rgba(0,120,212,0.15);color:#0078D4;font-size:10px;font-weight:700;">✓</div>15 modules vidéo clairs, sans jargon, adaptés aux débutants</li>
+          <li><div class="check-icon" style="background:rgba(0,120,212,0.15);color:#0078D4;font-size:10px;font-weight:700;">✓</div>Le guide PDF de maintenance inclus devient votre bible PC</li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="result-intermediaire" class="result-block">
+      <div class="result-card" style="background:#0f2744;color:#fff;">
+        <div class="result-level" style="color:#60aaff;">Niveau 2 — Intermédiaire</div>
+        <div class="result-title">L'Utilisateur Bloqué</div>
+        <div class="result-desc" style="color:rgba(255,255,255,0.75);">Vous vous débrouillez pour les tâches courantes mais vous buttez régulièrement sur des problèmes que vous ne savez pas résoudre seul. Il vous manque une méthode structurée pour combler ces lacunes.</div>
+        <div class="result-score-bar"><div class="result-score-fill" style="width:50%"></div></div>
+        <div class="result-score-label">Potentiel de progression : élevé</div>
+      </div>
+      <div class="pitch-card">
+        <h3>Ce que WINCLAIR va changer pour vous</h3>
+        <ul class="pitch-list">
+          <li><div class="check-icon" style="background:rgba(0,120,212,0.15);color:#0078D4;font-size:10px;font-weight:700;">✓</div>Vous allez combler toutes vos lacunes en 8 jours avec une méthode claire</li>
+          <li><div class="check-icon" style="background:rgba(0,120,212,0.15);color:#0078D4;font-size:10px;font-weight:700;">✓</div>Vous saurez résoudre 90% des pannes courantes sans aide extérieure</li>
+          <li><div class="check-icon" style="background:rgba(0,120,212,0.15);color:#0078D4;font-size:10px;font-weight:700;">✓</div>Les raccourcis clavier vont tripler votre vitesse de travail</li>
+          <li><div class="check-icon" style="background:rgba(0,120,212,0.15);color:#0078D4;font-size:10px;font-weight:700;">✓</div>Le groupe WhatsApp vous donne accès à des experts pour vos questions</li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="result-avance" class="result-block">
+      <div class="result-card" style="background:#0a1e3d;color:#fff;">
+        <div class="result-level" style="color:#60aaff;">Niveau 3 — Avancé</div>
+        <div class="result-title">Le Pro En Devenir</div>
+        <div class="result-desc" style="color:rgba(255,255,255,0.75);">Vous avez un bon niveau mais il vous manque encore les techniques avancées qui font la différence. Vous pouvez devenir la référence Windows 11 dans votre entourage professionnel ou familial.</div>
+        <div class="result-score-bar"><div class="result-score-fill" style="width:80%"></div></div>
+        <div class="result-score-label">Potentiel de progression : ciblé et efficace</div>
+      </div>
+      <div class="pitch-card">
+        <h3>Ce que WINCLAIR va changer pour vous</h3>
+        <ul class="pitch-list">
+          <li><div class="check-icon" style="background:rgba(0,120,212,0.15);color:#0078D4;font-size:10px;font-weight:700;">✓</div>Les modules avancés (sécurité, réseau, virtualisation) vont vous élever au niveau expert</li>
+          <li><div class="check-icon" style="background:rgba(0,120,212,0.15);color:#0078D4;font-size:10px;font-weight:700;">✓</div>Vous maîtriserez enfin les outils professionnels intégrés à Windows 11</li>
+          <li><div class="check-icon" style="background:rgba(0,120,212,0.15);color:#0078D4;font-size:10px;font-weight:700;">✓</div>Positionnez-vous comme référent IT dans votre entreprise ou votre réseau</li>
+          <li><div class="check-icon" style="background:rgba(0,120,212,0.15);color:#0078D4;font-size:10px;font-weight:700;">✓</div>8 jours pour passer de bon utilisateur à véritable expert autonome</li>
+        </ul>
+      </div>
+    </div>
+
+    <button class="cta-btn" onclick="sendPrompt('Je veux découvrir la formation WINCLAIR pour maîtriser Windows 11 en 8 jours')">Je veux maîtriser Windows 11 avec WINCLAIR →</button>
+    <div class="bonus-strip">
+      Inclus dans WINCLAIR : <strong>Guide PDF de maintenance</strong> + <strong>Guide raccourcis clavier</strong> + <strong>Accès groupe WhatsApp</strong>
+    </div>
+    <div style="text-align:center;margin-top:1rem;">
+      <button class="restart-btn" onclick="restartQuiz()">↺ Refaire le quiz</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  var scores = [null, null, null, null, null, null, null];
+  var current = 0;
+
+  function select(btn) {
+    var q = parseInt(btn.closest('.question-block').dataset.q);
+    var opts = btn.closest('.options').querySelectorAll('.option-btn');
+    opts.forEach(function(o) { o.classList.remove('selected'); });
+    btn.classList.add('selected');
+    scores[q] = parseInt(btn.dataset.score);
+    var nextBtn = document.getElementById('next-' + q);
+    if (nextBtn) { nextBtn.classList.add('enabled'); }
+  }
+
+  function nextQ(q) {
+    if (scores[q] === null) return;
+    var blocks = document.querySelectorAll('.question-block');
+    blocks[q].classList.remove('active');
+    if (q + 1 < blocks.length) {
+      blocks[q + 1].classList.add('active');
+      current = q + 1;
+      updateProgress(q + 1);
+    }
+  }
+
+  function prevQ(q) {
+    var blocks = document.querySelectorAll('.question-block');
+    blocks[q].classList.remove('active');
+    blocks[q - 1].classList.add('active');
+    current = q - 1;
+    updateProgress(q - 1);
+  }
+
+  function updateProgress(q) {
+    var pct = Math.round(((q + 1) / 7) * 100);
+    document.getElementById('prog-fill').style.width = pct + '%';
+    document.getElementById('prog-label').textContent = 'Question ' + (q + 1) + ' sur 7';
+  }
+
+  function showResult() {
+    if (scores[6] === null) return;
+    var total = scores.reduce(function(a, b) { return a + (b || 0); }, 0);
+    var max = 18;
+    var pct = total / max;
+
+    document.getElementById('quiz-body').style.display = 'none';
+    document.getElementById('result-area').style.display = 'block';
+
+    var level;
+    if (pct <= 0.33) level = 'debutant';
+    else if (pct <= 0.66) level = 'intermediaire';
+    else level = 'avance';
+
+    document.getElementById('result-' + level).classList.add('active');
+  }
+
+  function restartQuiz() {
+    scores = [null, null, null, null, null, null, null];
+    document.getElementById('result-area').style.display = 'none';
+    document.querySelectorAll('.result-block').forEach(function(b) { b.classList.remove('active'); });
+    document.querySelectorAll('.question-block').forEach(function(b) { b.classList.remove('active'); });
+    document.querySelectorAll('.option-btn').forEach(function(b) { b.classList.remove('selected'); });
+    document.querySelectorAll('.btn-next').forEach(function(b) { b.classList.remove('enabled'); });
+    document.querySelector('.question-block[data-q="0"]').classList.add('active');
+    document.getElementById('quiz-body').style.display = 'block';
+    updateProgress(0);
+  }
+</script>
