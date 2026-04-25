@@ -1,633 +1,405 @@
-
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz WINCLAIR – Quel niveau Windows 11 êtes-vous ?</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=DM+Sans:wght@400;500&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:#0a1628;color:#fff;min-height:100vh}
+.qw-wrap{max-width:640px;margin:0 auto;padding:20px 16px 60px}
 
-  .quiz-wrap {
-    font-family: 'DM Sans', sans-serif;
-    max-width: 680px;
-    margin: 0 auto;
-    padding: 0 0 2rem;
-    color: var(--color-text-primary);
-  }
+/* HEADER */
+.qw-header{text-align:center;padding:40px 24px 36px;position:relative}
+.qw-badge{display:inline-block;background:rgba(0,120,212,.25);color:#60aaff;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:16px;font-family:'Sora',sans-serif;border:1px solid rgba(96,170,255,.2)}
+.qw-h1{font-family:'Sora',sans-serif;font-size:clamp(22px,5vw,30px);font-weight:800;line-height:1.25;margin-bottom:12px;background:linear-gradient(135deg,#fff 60%,#60aaff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.qw-sub{font-size:15px;color:rgba(255,255,255,.6);line-height:1.6;margin-bottom:20px}
+.qw-meta{display:flex;justify-content:center;gap:20px;font-size:12px;color:rgba(255,255,255,.35)}
 
-  .quiz-header {
-    background: #0a1628;
-    border-radius: 16px;
-    padding: 2rem 2rem 1.5rem;
-    margin-bottom: 1.5rem;
-    position: relative;
-    overflow: hidden;
-  }
+/* FORMULAIRE DE CAPTURE */
+.qw-capture{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:32px 28px;animation:qwFadeIn .4s ease}
+.qw-capture-title{font-family:'Sora',sans-serif;font-size:20px;font-weight:700;color:#fff;text-align:center;margin-bottom:8px}
+.qw-capture-sub{font-size:14px;color:rgba(255,255,255,.55);text-align:center;margin-bottom:28px;line-height:1.6}
+.qw-field{margin-bottom:14px}
+.qw-field label{display:block;font-size:12px;font-weight:600;color:rgba(255,255,255,.5);letter-spacing:.5px;text-transform:uppercase;font-family:'Sora',sans-serif;margin-bottom:6px}
+.qw-input{width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:13px 16px;font-size:14px;color:#fff;font-family:'DM Sans',sans-serif;outline:none;transition:all .15s}
+.qw-input::placeholder{color:rgba(255,255,255,.25)}
+.qw-input:focus{border-color:#0078D4;background:rgba(0,120,212,.08)}
+.qw-input.error{border-color:#ef4444}
+.qw-field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.qw-start-btn{width:100%;background:linear-gradient(135deg,#0078D4,#005fa3);border:none;border-radius:12px;padding:16px;font-size:16px;font-weight:700;color:#fff;cursor:pointer;font-family:'Sora',sans-serif;transition:all .2s;margin-top:8px;letter-spacing:.3px}
+.qw-start-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,120,212,.35)}
+.qw-privacy{font-size:11px;color:rgba(255,255,255,.25);text-align:center;margin-top:12px}
+.qw-error-msg{font-size:12px;color:#ef4444;margin-top:4px;display:none}
 
-  .quiz-header::before {
-    content: '';
-    position: absolute;
-    top: -40px; right: -40px;
-    width: 180px; height: 180px;
-    border-radius: 50%;
-    background: rgba(0,120,212,0.15);
-  }
+/* PROGRESS */
+.qw-progress-wrap{margin-bottom:28px}
+.qw-progress-info{display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,.4);margin-bottom:8px;font-family:'Sora',sans-serif}
+.qw-progress-bar{height:4px;background:rgba(255,255,255,.08);border-radius:4px;overflow:hidden}
+.qw-progress-fill{height:100%;background:linear-gradient(90deg,#0078D4,#60aaff);border-radius:4px;transition:width .5s cubic-bezier(.4,0,.2,1)}
 
-  .quiz-header::after {
-    content: '';
-    position: absolute;
-    bottom: -20px; left: 30%;
-    width: 100px; height: 100px;
-    border-radius: 50%;
-    background: rgba(0,120,212,0.08);
-  }
+/* QUESTION CARD */
+.qw-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:28px 24px;animation:qwFadeIn .35s ease}
+@keyframes qwFadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.qw-q-num{font-size:10px;font-weight:700;letter-spacing:2px;color:#0078D4;text-transform:uppercase;font-family:'Sora',sans-serif;margin-bottom:10px}
+.qw-q-text{font-family:'Sora',sans-serif;font-size:clamp(15px,3.5vw,18px);font-weight:700;color:#fff;margin-bottom:22px;line-height:1.4}
+.qw-options{display:flex;flex-direction:column;gap:10px}
+.qw-opt{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px 16px;cursor:pointer;font-size:14px;color:rgba(255,255,255,.8);font-family:'DM Sans',sans-serif;text-align:left;display:flex;align-items:center;gap:12px;transition:all .18s ease;line-height:1.4}
+.qw-opt:hover{border-color:rgba(0,120,212,.5);background:rgba(0,120,212,.08);color:#fff}
+.qw-opt.selected{border-color:#0078D4;background:rgba(0,120,212,.15);color:#fff}
+.qw-opt-letter{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:rgba(255,255,255,.5);flex-shrink:0;font-family:'Sora',sans-serif;transition:all .18s}
+.qw-opt.selected .qw-opt-letter{background:#0078D4;color:#fff}
 
-  .quiz-badge {
-    display: inline-block;
-    background: rgba(0,120,212,0.3);
-    color: #60aaff;
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    padding: 4px 12px;
-    border-radius: 20px;
-    margin-bottom: 0.75rem;
-    font-family: 'Sora', sans-serif;
-  }
+/* NAV */
+.qw-nav{display:flex;justify-content:space-between;align-items:center;margin-top:22px}
+.qw-btn-back{background:transparent;border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:10px 18px;font-size:13px;color:rgba(255,255,255,.45);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s}
+.qw-btn-back:hover{border-color:rgba(255,255,255,.25);color:rgba(255,255,255,.7)}
+.qw-btn-next{background:#0078D4;border:none;border-radius:10px;padding:12px 28px;font-size:14px;font-weight:600;color:#fff;cursor:pointer;font-family:'Sora',sans-serif;transition:all .18s;opacity:.35;pointer-events:none}
+.qw-btn-next.on{opacity:1;pointer-events:all}
+.qw-btn-next.on:hover{background:#005fa3;transform:translateY(-1px)}
 
-  .quiz-header h1 {
-    font-family: 'Sora', sans-serif;
-    font-size: 22px;
-    font-weight: 700;
-    color: #ffffff;
-    margin: 0 0 0.5rem;
-    line-height: 1.3;
-  }
+/* RESULT */
+.qw-result{animation:qwFadeIn .4s ease}
+.qw-result-card{border-radius:20px;padding:28px 24px;margin-bottom:20px}
+.qw-result-card.d1{background:linear-gradient(135deg,#0a1e40,#0d2a5a)}
+.qw-result-card.d2{background:linear-gradient(135deg,#1a1200,#2a1f00)}
+.qw-result-card.d3{background:linear-gradient(135deg,#001a0d,#002a15)}
+.qw-greet{font-family:'Sora',sans-serif;font-size:14px;margin-bottom:8px}
+.d1 .qw-greet{color:#60aaff}
+.d2 .qw-greet{color:#fbbf24}
+.d3 .qw-greet{color:#34d399}
+.qw-result-level{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;font-family:'Sora',sans-serif;margin-bottom:8px;opacity:.7}
+.qw-result-title{font-family:'Sora',sans-serif;font-size:22px;font-weight:800;color:#fff;margin-bottom:10px}
+.qw-result-desc{font-size:14px;color:rgba(255,255,255,.7);line-height:1.7;margin-bottom:18px}
+.qw-score-bar{background:rgba(255,255,255,.1);border-radius:4px;height:4px;margin-bottom:6px;overflow:hidden}
+.qw-score-fill{height:100%;border-radius:4px;transition:width 1s ease .3s}
+.d1 .qw-score-fill{background:linear-gradient(90deg,#0078D4,#60aaff);width:0}
+.d2 .qw-score-fill{background:linear-gradient(90deg,#f59e0b,#fbbf24);width:0}
+.d3 .qw-score-fill{background:linear-gradient(90deg,#059669,#34d399);width:0}
+.qw-score-label{font-size:11px;color:rgba(255,255,255,.4);font-family:'Sora',sans-serif}
+.qw-pitch{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:24px;margin-bottom:16px}
+.qw-pitch h3{font-family:'Sora',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:16px}
+.qw-benefits{list-style:none;display:flex;flex-direction:column;gap:10px}
+.qw-benefits li{display:flex;gap:10px;font-size:13px;color:rgba(255,255,255,.7);line-height:1.5;align-items:flex-start}
+.qw-check{width:18px;height:18px;border-radius:50%;background:rgba(0,120,212,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;font-size:9px;color:#60aaff;font-weight:700}
+.qw-bonus{background:rgba(255,215,0,.07);border:1px solid rgba(255,215,0,.2);border-radius:14px;padding:14px 18px;margin-bottom:16px;font-size:13px;color:rgba(255,255,255,.8);text-align:center;line-height:1.6}
+.qw-bonus strong{color:#ffd700}
+.qw-cta{width:100%;background:linear-gradient(135deg,#0078D4,#005fa3);border:none;border-radius:14px;padding:18px;font-size:16px;font-weight:700;color:#fff;cursor:pointer;font-family:'Sora',sans-serif;transition:all .2s;margin-bottom:10px}
+.qw-cta:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,120,212,.35)}
+.qw-payment{font-size:11px;color:rgba(255,255,255,.3);text-align:center;margin-bottom:20px}
+.qw-restart{background:transparent;border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:10px 20px;font-size:13px;color:rgba(255,255,255,.4);cursor:pointer;font-family:'DM Sans',sans-serif;display:block;margin:0 auto;transition:all .15s}
+.qw-restart:hover{border-color:rgba(255,255,255,.25);color:rgba(255,255,255,.65)}
+.qw-hidden{display:none!important}
 
-  .quiz-header p {
-    font-size: 14px;
-    color: rgba(255,255,255,0.6);
-    margin: 0;
-    line-height: 1.6;
-  }
-
-  .quiz-meta {
-    display: flex;
-    gap: 1.5rem;
-    margin-top: 1rem;
-  }
-
-  .quiz-meta span {
-    font-size: 12px;
-    color: rgba(255,255,255,0.5);
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-
-  .progress-bar {
-    background: var(--color-background-secondary);
-    border-radius: 8px;
-    height: 6px;
-    margin-bottom: 1.5rem;
-    overflow: hidden;
-  }
-
-  .progress-fill {
-    height: 100%;
-    background: #0078D4;
-    border-radius: 8px;
-    transition: width 0.4s ease;
-  }
-
-  .progress-label {
-    font-size: 12px;
-    color: var(--color-text-secondary);
-    margin-bottom: 6px;
-    font-family: 'Sora', sans-serif;
-  }
-
-  .question-block {
-    display: none;
-    animation: fadeSlide 0.3s ease;
-  }
-
-  .question-block.active { display: block; }
-
-  @keyframes fadeSlide {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .q-number {
-    font-size: 11px;
-    color: #0078D4;
-    font-weight: 500;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    font-family: 'Sora', sans-serif;
-    margin-bottom: 8px;
-  }
-
-  .q-text {
-    font-family: 'Sora', sans-serif;
-    font-size: 17px;
-    font-weight: 600;
-    color: var(--color-text-primary);
-    margin-bottom: 1.25rem;
-    line-height: 1.4;
-  }
-
-  .options {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .option-btn {
-    background: var(--color-background-primary);
-    border: 1px solid var(--color-border-tertiary);
-    border-radius: 12px;
-    padding: 14px 18px;
-    text-align: left;
-    cursor: pointer;
-    font-size: 14px;
-    color: var(--color-text-primary);
-    font-family: 'DM Sans', sans-serif;
-    transition: all 0.15s ease;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .option-btn:hover {
-    border-color: #0078D4;
-    background: rgba(0,120,212,0.05);
-  }
-
-  .option-btn.selected {
-    border-color: #0078D4;
-    background: rgba(0,120,212,0.08);
-    color: var(--color-text-primary);
-  }
-
-  .option-letter {
-    width: 28px; height: 28px;
-    border-radius: 50%;
-    background: var(--color-background-secondary);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--color-text-secondary);
-    flex-shrink: 0;
-    font-family: 'Sora', sans-serif;
-    transition: all 0.15s ease;
-  }
-
-  .option-btn.selected .option-letter {
-    background: #0078D4;
-    color: #fff;
-  }
-
-  .nav-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 1.5rem;
-  }
-
-  .btn-next {
-    background: #0078D4;
-    color: #fff;
-    border: none;
-    border-radius: 10px;
-    padding: 12px 28px;
-    font-size: 14px;
-    font-weight: 500;
-    font-family: 'Sora', sans-serif;
-    cursor: pointer;
-    transition: all 0.15s ease;
-    opacity: 0.4;
-    pointer-events: none;
-  }
-
-  .btn-next.enabled {
-    opacity: 1;
-    pointer-events: all;
-  }
-
-  .btn-next.enabled:hover { background: #005fa3; }
-
-  .result-block {
-    display: none;
-    animation: fadeSlide 0.4s ease;
-  }
-
-  .result-block.active { display: block; }
-
-  .result-card {
-    border-radius: 16px;
-    padding: 2rem;
-    margin-bottom: 1.25rem;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .result-level {
-    font-family: 'Sora', sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    margin-bottom: 6px;
-  }
-
-  .result-title {
-    font-family: 'Sora', sans-serif;
-    font-size: 24px;
-    font-weight: 700;
-    margin-bottom: 0.75rem;
-    line-height: 1.25;
-  }
-
-  .result-desc {
-    font-size: 14px;
-    line-height: 1.7;
-    margin-bottom: 1rem;
-  }
-
-  .result-score-bar {
-    background: rgba(255,255,255,0.15);
-    border-radius: 6px;
-    height: 6px;
-    margin-bottom: 6px;
-    overflow: hidden;
-  }
-
-  .result-score-fill {
-    height: 100%;
-    background: rgba(255,255,255,0.7);
-    border-radius: 6px;
-  }
-
-  .result-score-label {
-    font-size: 12px;
-    opacity: 0.7;
-    font-family: 'Sora', sans-serif;
-  }
-
-  .pitch-card {
-    background: var(--color-background-primary);
-    border: 1px solid var(--color-border-tertiary);
-    border-radius: 16px;
-    padding: 1.5rem;
-    margin-bottom: 1rem;
-  }
-
-  .pitch-card h3 {
-    font-family: 'Sora', sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 0.75rem;
-    color: var(--color-text-primary);
-  }
-
-  .pitch-list {
-    list-style: none;
-    padding: 0; margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .pitch-list li {
-    font-size: 13px;
-    color: var(--color-text-secondary);
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-    line-height: 1.5;
-  }
-
-  .check-icon {
-    width: 16px; height: 16px;
-    border-radius: 50%;
-    background: rgba(0,120,212,0.15);
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-
-  .cta-btn {
-    width: 100%;
-    background: #0078D4;
-    color: #fff;
-    border: none;
-    border-radius: 12px;
-    padding: 16px;
-    font-size: 15px;
-    font-weight: 600;
-    font-family: 'Sora', sans-serif;
-    cursor: pointer;
-    transition: all 0.15s ease;
-    margin-top: 0.5rem;
-  }
-
-  .cta-btn:hover { background: #005fa3; }
-
-  .bonus-strip {
-    background: var(--color-background-secondary);
-    border-radius: 12px;
-    padding: 12px 16px;
-    font-size: 12px;
-    color: var(--color-text-secondary);
-    text-align: center;
-    margin-top: 0.75rem;
-  }
-
-  .bonus-strip strong {
-    color: var(--color-text-primary);
-  }
-
-  .restart-btn {
-    background: transparent;
-    border: 1px solid var(--color-border-tertiary);
-    border-radius: 10px;
-    padding: 10px 20px;
-    font-size: 13px;
-    color: var(--color-text-secondary);
-    cursor: pointer;
-    font-family: 'DM Sans', sans-serif;
-    transition: all 0.15s;
-  }
-
-  .restart-btn:hover {
-    border-color: var(--color-border-secondary);
-    color: var(--color-text-primary);
-  }
+@media(max-width:480px){
+  .qw-field-row{grid-template-columns:1fr}
+  .qw-capture{padding:24px 18px}
+}
 </style>
+</head>
+<body>
+<div class="qw-wrap">
 
-<div class="quiz-wrap">
-  <h2 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">Quiz : Quel niveau Windows 11 êtes-vous ? — Lead magnet WINCLAIR</h2>
-
-  <div class="quiz-header">
-    <div class="quiz-badge">Quiz gratuit — WINCLAIR</div>
-    <h1>Quel niveau Windows 11<br>êtes-vous vraiment ?</h1>
-    <p>Découvrez votre profil en 7 questions et recevez un plan d'action personnalisé.</p>
-    <div class="quiz-meta">
-      <span>⏱ 2 minutes</span>
+  <!-- HEADER -->
+  <div class="qw-header">
+    <div class="qw-badge">✦ Quiz Gratuit — WINCLAIR</div>
+    <h1 class="qw-h1">Quel niveau Windows 11<br>êtes-vous vraiment ?</h1>
+    <p class="qw-sub">7 questions · 2 minutes · Résultat + plan d'action personnalisé</p>
+    <div class="qw-meta">
+      <span>⏱ 2 min</span>
       <span>✦ 7 questions</span>
       <span>✦ Résultat immédiat</span>
     </div>
   </div>
 
-  <div id="quiz-body">
-    <div class="progress-label" id="prog-label">Question 1 sur 7</div>
-    <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:14%"></div></div>
+  <!-- ÉTAPE 1 : FORMULAIRE DE CAPTURE -->
+  <div id="qwCapture">
+    <div class="qw-capture">
+      <div class="qw-capture-title">Avant de commencer...</div>
+      <div class="qw-capture-sub">Entrez vos informations pour recevoir votre résultat personnalisé et votre plan d'action WINCLAIR gratuit.</div>
+
+      <div class="qw-field-row">
+        <div class="qw-field">
+          <label>Prénom *</label>
+          <input class="qw-input" type="text" id="cfPrenom" placeholder="Ex: Kouamé" autocomplete="given-name">
+          <div class="qw-error-msg" id="errPrenom">Prénom requis</div>
+        </div>
+        <div class="qw-field">
+          <label>Nom *</label>
+          <input class="qw-input" type="text" id="cfNom" placeholder="Ex: Traoré" autocomplete="family-name">
+          <div class="qw-error-msg" id="errNom">Nom requis</div>
+        </div>
+      </div>
+
+      <div class="qw-field">
+        <label>Adresse email *</label>
+        <input class="qw-input" type="email" id="cfEmail" placeholder="votre@email.com" autocomplete="email">
+        <div class="qw-error-msg" id="errEmail">Email valide requis</div>
+      </div>
+
+      <div class="qw-field">
+        <label>Numéro WhatsApp *</label>
+        <input class="qw-input" type="tel" id="cfWa" placeholder="Ex: +225 07 00 00 00 00" autocomplete="tel">
+        <div class="qw-error-msg" id="errWa">Numéro WhatsApp requis</div>
+      </div>
+
+      <button class="qw-start-btn" onclick="qwStartQuiz()">Démarrer le quiz →</button>
+      <div class="qw-privacy">🔒 Vos données sont privées. Aucun spam. Désabonnement en 1 clic.</div>
+    </div>
+  </div>
+
+  <!-- ÉTAPE 2 : QUIZ -->
+  <div id="qwBody" class="qw-hidden">
+    <div class="qw-progress-wrap">
+      <div class="qw-progress-info">
+        <span id="qwProgLabel">Question 1 sur 7</span>
+        <span id="qwProgPct">14%</span>
+      </div>
+      <div class="qw-progress-bar"><div class="qw-progress-fill" id="qwProgFill" style="width:14%"></div></div>
+    </div>
 
     <!-- Q1 -->
-    <div class="question-block active" data-q="0">
-      <div class="q-number">Question 01</div>
-      <div class="q-text">Quand vous allumez votre PC, vous vous sentez...</div>
-      <div class="options">
-        <button class="option-btn" data-score="0" onclick="select(this)"><span class="option-letter">A</span>Perdu — je clique au hasard pour trouver ce dont j'ai besoin</button>
-        <button class="option-btn" data-score="1" onclick="select(this)"><span class="option-letter">B</span>À l'aise pour les tâches de base, mais bloqué dès que ça se complique</button>
-        <button class="option-btn" data-score="2" onclick="select(this)"><span class="option-letter">C</span>Confiant — je sais où chercher, mais j'ai encore des zones d'ombre</button>
-        <button class="option-btn" data-score="3" onclick="select(this)"><span class="option-letter">D</span>Très à l'aise — je configure tout moi-même sans aide</button>
+    <div class="qw-card" id="qwQ0">
+      <div class="qw-q-num">Question 01</div>
+      <div class="qw-q-text">Quand vous allumez votre PC, vous vous sentez...</div>
+      <div class="qw-options">
+        <button class="qw-opt" data-score="0" onclick="qwSelect(this,0)"><span class="qw-opt-letter">A</span>Perdu(e) — je clique au hasard pour trouver ce dont j'ai besoin</button>
+        <button class="qw-opt" data-score="1" onclick="qwSelect(this,0)"><span class="qw-opt-letter">B</span>À l'aise pour les tâches basiques, mais bloqué(e) dès que ça se complique</button>
+        <button class="qw-opt" data-score="2" onclick="qwSelect(this,0)"><span class="qw-opt-letter">C</span>Confiant(e) — je sais où chercher, mais j'ai encore des zones d'ombre</button>
+        <button class="qw-opt" data-score="3" onclick="qwSelect(this,0)"><span class="qw-opt-letter">D</span>Très à l'aise — je configure tout moi-même sans aide</button>
       </div>
-      <div class="nav-row">
-        <span style="font-size:12px;color:var(--color-text-secondary)">Sélectionnez une réponse</span>
-        <button class="btn-next" id="next-0" onclick="nextQ(0)">Suivant →</button>
-      </div>
+      <div class="qw-nav"><span></span><button class="qw-btn-next" id="qwNext0" onclick="qwNext(0)">Suivant →</button></div>
     </div>
 
     <!-- Q2 -->
-    <div class="question-block" data-q="1">
-      <div class="q-number">Question 02</div>
-      <div class="q-text">Votre PC devient lent. Que faites-vous en premier ?</div>
-      <div class="options">
-        <button class="option-btn" data-score="0" onclick="select(this)"><span class="option-letter">A</span>J'attends ou je redémarre sans vraiment comprendre pourquoi</button>
-        <button class="option-btn" data-score="1" onclick="select(this)"><span class="option-letter">B</span>Je supprime quelques fichiers ou je vide la corbeille</button>
-        <button class="option-btn" data-score="2" onclick="select(this)"><span class="option-letter">C</span>Je vérifie le Gestionnaire des tâches pour voir ce qui consomme les ressources</button>
-        <button class="option-btn" data-score="3" onclick="select(this)"><span class="option-letter">D</span>Je nettoie les programmes au démarrage, libère la RAM et optimise le disque</button>
+    <div class="qw-card qw-hidden" id="qwQ1">
+      <div class="qw-q-num">Question 02</div>
+      <div class="qw-q-text">Votre PC devient lent. Que faites-vous en premier ?</div>
+      <div class="qw-options">
+        <button class="qw-opt" data-score="0" onclick="qwSelect(this,1)"><span class="qw-opt-letter">A</span>J'attends ou je redémarre sans vraiment comprendre pourquoi</button>
+        <button class="qw-opt" data-score="1" onclick="qwSelect(this,1)"><span class="qw-opt-letter">B</span>Je supprime quelques fichiers ou je vide la corbeille</button>
+        <button class="qw-opt" data-score="2" onclick="qwSelect(this,1)"><span class="qw-opt-letter">C</span>Je vérifie le Gestionnaire des tâches pour voir ce qui consomme les ressources</button>
+        <button class="qw-opt" data-score="3" onclick="qwSelect(this,1)"><span class="qw-opt-letter">D</span>Je nettoie les programmes au démarrage, libère la RAM et optimise le disque</button>
       </div>
-      <div class="nav-row">
-        <button class="restart-btn" onclick="prevQ(1)">← Retour</button>
-        <button class="btn-next" id="next-1" onclick="nextQ(1)">Suivant →</button>
-      </div>
+      <div class="qw-nav"><button class="qw-btn-back" onclick="qwPrev(1)">← Retour</button><button class="qw-btn-next" id="qwNext1" onclick="qwNext(1)">Suivant →</button></div>
     </div>
 
     <!-- Q3 -->
-    <div class="question-block" data-q="2">
-      <div class="q-number">Question 03</div>
-      <div class="q-text">Avez-vous déjà utilisé le menu Paramètres de Windows 11 ?</div>
-      <div class="options">
-        <button class="option-btn" data-score="0" onclick="select(this)"><span class="option-letter">A</span>Non, je ne sais pas comment y accéder</button>
-        <button class="option-btn" data-score="1" onclick="select(this)"><span class="option-letter">B</span>Oui, pour changer le fond d'écran ou le volume</button>
-        <button class="option-btn" data-score="2" onclick="select(this)"><span class="option-letter">C</span>Oui, je gère les comptes utilisateurs et le Wi-Fi</button>
-        <button class="option-btn" data-score="3" onclick="select(this)"><span class="option-letter">D</span>Oui, j'y configure aussi les mises à jour, la sécurité et les périphériques</button>
+    <div class="qw-card qw-hidden" id="qwQ2">
+      <div class="qw-q-num">Question 03</div>
+      <div class="qw-q-text">Avez-vous déjà utilisé le menu Paramètres de Windows 11 ?</div>
+      <div class="qw-options">
+        <button class="qw-opt" data-score="0" onclick="qwSelect(this,2)"><span class="qw-opt-letter">A</span>Non, je ne sais pas comment y accéder</button>
+        <button class="qw-opt" data-score="1" onclick="qwSelect(this,2)"><span class="qw-opt-letter">B</span>Oui, pour changer le fond d'écran ou le volume</button>
+        <button class="qw-opt" data-score="2" onclick="qwSelect(this,2)"><span class="qw-opt-letter">C</span>Oui, je gère les comptes utilisateurs et le Wi-Fi</button>
+        <button class="qw-opt" data-score="3" onclick="qwSelect(this,2)"><span class="qw-opt-letter">D</span>Oui, je configure aussi les mises à jour, la sécurité et les périphériques</button>
       </div>
-      <div class="nav-row">
-        <button class="restart-btn" onclick="prevQ(2)">← Retour</button>
-        <button class="btn-next" id="next-2" onclick="nextQ(2)">Suivant →</button>
-      </div>
+      <div class="qw-nav"><button class="qw-btn-back" onclick="qwPrev(2)">← Retour</button><button class="qw-btn-next" id="qwNext2" onclick="qwNext(2)">Suivant →</button></div>
     </div>
 
     <!-- Q4 -->
-    <div class="question-block" data-q="3">
-      <div class="q-number">Question 04</div>
-      <div class="q-text">Un ami vous dit "fais Ctrl + Shift + Esc". Vous savez à quoi ça sert ?</div>
-      <div class="options">
-        <button class="option-btn" data-score="0" onclick="select(this)"><span class="option-letter">A</span>Pas du tout — les raccourcis clavier, ce n'est pas pour moi</button>
-        <button class="option-btn" data-score="1" onclick="select(this)"><span class="option-letter">B</span>Je connais Ctrl+C et Ctrl+V, mais c'est à peu près tout</button>
-        <button class="option-btn" data-score="2" onclick="select(this)"><span class="option-letter">C</span>Oui, c'est le Gestionnaire des tâches — j'en connais une dizaine en tout</button>
-        <button class="option-btn" data-score="3" onclick="select(this)"><span class="option-letter">D</span>Bien sûr, et j'utilise aussi Win+X, Win+I, Alt+F4 au quotidien</button>
+    <div class="qw-card qw-hidden" id="qwQ3">
+      <div class="qw-q-num">Question 04</div>
+      <div class="qw-q-text">Un ami vous dit "fais Ctrl + Shift + Esc". Vous savez à quoi ça sert ?</div>
+      <div class="qw-options">
+        <button class="qw-opt" data-score="0" onclick="qwSelect(this,3)"><span class="qw-opt-letter">A</span>Pas du tout — les raccourcis clavier, ce n'est pas pour moi</button>
+        <button class="qw-opt" data-score="1" onclick="qwSelect(this,3)"><span class="qw-opt-letter">B</span>Je connais Ctrl+C et Ctrl+V, mais c'est à peu près tout</button>
+        <button class="qw-opt" data-score="2" onclick="qwSelect(this,3)"><span class="qw-opt-letter">C</span>Oui, c'est le Gestionnaire des tâches ! J'en connais une dizaine</button>
+        <button class="qw-opt" data-score="3" onclick="qwSelect(this,3)"><span class="qw-opt-letter">D</span>Bien sûr, et j'utilise aussi Win+X, Win+I, Alt+F4 au quotidien</button>
       </div>
-      <div class="nav-row">
-        <button class="restart-btn" onclick="prevQ(3)">← Retour</button>
-        <button class="btn-next" id="next-3" onclick="nextQ(3)">Suivant →</button>
-      </div>
+      <div class="qw-nav"><button class="qw-btn-back" onclick="qwPrev(3)">← Retour</button><button class="qw-btn-next" id="qwNext3" onclick="qwNext(3)">Suivant →</button></div>
     </div>
 
     <!-- Q5 -->
-    <div class="question-block" data-q="4">
-      <div class="q-number">Question 05</div>
-      <div class="q-text">Votre PC a eu un écran bleu (BSOD). Quelle a été votre réaction ?</div>
-      <div class="options">
-        <button class="option-btn" data-score="0" onclick="select(this)"><span class="option-letter">A</span>Panique totale — j'ai appelé quelqu'un ou porté le PC en réparation</button>
-        <button class="option-btn" data-score="1" onclick="select(this)"><span class="option-letter">B</span>J'ai redémarré et espéré que ça ne revienne pas</button>
-        <button class="option-btn" data-score="2" onclick="select(this)"><span class="option-letter">C</span>J'ai noté le code d'erreur et cherché sur internet</button>
-        <button class="option-btn" data-score="3" onclick="select(this)"><span class="option-letter">D</span>J'ai diagnostiqué via l'observateur d'événements et résolu le problème moi-même</button>
+    <div class="qw-card qw-hidden" id="qwQ4">
+      <div class="qw-q-num">Question 05</div>
+      <div class="qw-q-text">Votre PC a eu un écran bleu (BSOD). Quelle a été votre réaction ?</div>
+      <div class="qw-options">
+        <button class="qw-opt" data-score="0" onclick="qwSelect(this,4)"><span class="qw-opt-letter">A</span>Panique totale — j'ai appelé quelqu'un ou porté le PC en réparation</button>
+        <button class="qw-opt" data-score="1" onclick="qwSelect(this,4)"><span class="qw-opt-letter">B</span>J'ai redémarré et espéré que ça ne revienne pas</button>
+        <button class="qw-opt" data-score="2" onclick="qwSelect(this,4)"><span class="qw-opt-letter">C</span>J'ai noté le code d'erreur et cherché la solution sur internet</button>
+        <button class="qw-opt" data-score="3" onclick="qwSelect(this,4)"><span class="qw-opt-letter">D</span>J'ai diagnostiqué via l'Observateur d'événements et résolu moi-même</button>
       </div>
-      <div class="nav-row">
-        <button class="restart-btn" onclick="prevQ(4)">← Retour</button>
-        <button class="btn-next" id="next-4" onclick="nextQ(4)">Suivant →</button>
-      </div>
+      <div class="qw-nav"><button class="qw-btn-back" onclick="qwPrev(4)">← Retour</button><button class="qw-btn-next" id="qwNext4" onclick="qwNext(4)">Suivant →</button></div>
     </div>
 
     <!-- Q6 -->
-    <div class="question-block" data-q="5">
-      <div class="q-number">Question 06</div>
-      <div class="q-text">Avez-vous une licence Windows 11 originale sur votre PC ?</div>
-      <div class="options">
-        <button class="option-btn" data-score="0" onclick="select(this)"><span class="option-letter">A</span>Je ne sais pas — je n'ai jamais vérifié</button>
-        <button class="option-btn" data-score="1" onclick="select(this)"><span class="option-letter">B</span>Non, j'ai une version craquée — je ne savais pas que c'était un risque</button>
-        <button class="option-btn" data-score="2" onclick="select(this)"><span class="option-letter">C</span>Oui, je crois que oui, mais je n'ai pas cherché à confirmer</button>
-        <button class="option-btn" data-score="3" onclick="select(this)"><span class="option-letter">D</span>Oui, et je sais exactement où trouver ma clé de licence si besoin</button>
+    <div class="qw-card qw-hidden" id="qwQ5">
+      <div class="qw-q-num">Question 06</div>
+      <div class="qw-q-text">Avez-vous une licence Windows 11 originale sur votre PC ?</div>
+      <div class="qw-options">
+        <button class="qw-opt" data-score="0" onclick="qwSelect(this,5)"><span class="qw-opt-letter">A</span>Je ne sais pas — je n'ai jamais vérifié</button>
+        <button class="qw-opt" data-score="1" onclick="qwSelect(this,5)"><span class="qw-opt-letter">B</span>Non, j'ai une version craquée — je ne savais pas que c'était un risque</button>
+        <button class="qw-opt" data-score="2" onclick="qwSelect(this,5)"><span class="qw-opt-letter">C</span>Oui, je crois que oui, mais je n'ai pas cherché à confirmer</button>
+        <button class="qw-opt" data-score="3" onclick="qwSelect(this,5)"><span class="qw-opt-letter">D</span>Oui, et je sais exactement où trouver ma clé de licence si besoin</button>
       </div>
-      <div class="nav-row">
-        <button class="restart-btn" onclick="prevQ(5)">← Retour</button>
-        <button class="btn-next" id="next-5" onclick="nextQ(5)">Suivant →</button>
-      </div>
+      <div class="qw-nav"><button class="qw-btn-back" onclick="qwPrev(5)">← Retour</button><button class="qw-btn-next" id="qwNext5" onclick="qwNext(5)">Suivant →</button></div>
     </div>
 
     <!-- Q7 -->
-    <div class="question-block" data-q="6">
-      <div class="q-number">Question 07</div>
-      <div class="q-text">Pourquoi voulez-vous vraiment maîtriser Windows 11 ?</div>
-      <div class="options">
-        <button class="option-btn" data-score="0" onclick="select(this)"><span class="option-letter">A</span>Pour arrêter de dépendre des techniciens à chaque problème</button>
-        <button class="option-btn" data-score="1" onclick="select(this)"><span class="option-letter">B</span>Pour être plus productif dans mon travail ou mes études</button>
-        <button class="option-btn" data-score="2" onclick="select(this)"><span class="option-letter">C</span>Pour gérer le PC de mon entreprise ou de mes clients</button>
-        <button class="option-btn" data-score="3" onclick="select(this)"><span class="option-letter">D</span>Pour tout maîtriser de A à Z et ne jamais être bloqué</button>
+    <div class="qw-card qw-hidden" id="qwQ6">
+      <div class="qw-q-num">Question 07</div>
+      <div class="qw-q-text">Pourquoi voulez-vous vraiment maîtriser Windows 11 ?</div>
+      <div class="qw-options">
+        <button class="qw-opt" data-score="0" onclick="qwSelect(this,6)"><span class="qw-opt-letter">A</span>Pour arrêter de dépendre des techniciens à chaque problème</button>
+        <button class="qw-opt" data-score="1" onclick="qwSelect(this,6)"><span class="qw-opt-letter">B</span>Pour être plus productif(ve) dans mon travail ou mes études</button>
+        <button class="qw-opt" data-score="2" onclick="qwSelect(this,6)"><span class="qw-opt-letter">C</span>Pour gérer le PC de mon entreprise ou de mes clients</button>
+        <button class="qw-opt" data-score="3" onclick="qwSelect(this,6)"><span class="qw-opt-letter">D</span>Pour tout maîtriser de A à Z et ne jamais être bloqué(e)</button>
       </div>
-      <div class="nav-row">
-        <button class="restart-btn" onclick="prevQ(6)">← Retour</button>
-        <button class="btn-next" id="next-6" onclick="showResult()">Voir mon résultat →</button>
-      </div>
+      <div class="qw-nav"><button class="qw-btn-back" onclick="qwPrev(6)">← Retour</button><button class="qw-btn-next" id="qwNext6" onclick="qwShowResult()">Voir mon résultat →</button></div>
     </div>
   </div>
 
-  <!-- Results -->
-  <div id="result-area" style="display:none;">
-    <div id="result-debutant" class="result-block">
-      <div class="result-card" style="background:#0a1628;color:#fff;">
-        <div class="result-level" style="color:#60aaff;">Niveau 1 — Débutant</div>
-        <div class="result-title">L'Explorateur Hésitant</div>
-        <div class="result-desc" style="color:rgba(255,255,255,0.75);">Windows 11 vous semble encore complexe et vous évitez les manipulations par peur de "tout casser". C'est tout à fait normal — et c'est exactement là que WINCLAIR vous prend en main, étape par étape.</div>
-        <div class="result-score-bar"><div class="result-score-fill" style="width:20%"></div></div>
-        <div class="result-score-label">Potentiel de progression : très élevé</div>
+  <!-- ÉTAPE 3 : RÉSULTAT -->
+  <div id="qwResult" class="qw-hidden">
+
+    <div id="qwR0" class="qw-hidden">
+      <div class="qw-result-card d1">
+        <div class="qw-greet" id="qwGreet0"></div>
+        <div class="qw-result-level">Niveau 1 — Débutant</div>
+        <div class="qw-result-title">L'Explorateur Hésitant</div>
+        <div class="qw-result-desc">Windows 11 vous semble encore complexe et vous évitez les manipulations par peur de "tout casser". C'est tout à fait normal — et c'est exactement là que WINCLAIR vous prend en main, étape par étape, dès le Jour 1.</div>
+        <div class="qw-score-bar"><div class="qw-score-fill" id="qwFill0"></div></div>
+        <div class="qw-score-label">Potentiel de progression : très élevé</div>
       </div>
-      <div class="pitch-card">
+      <div class="qw-pitch">
         <h3>Ce que WINCLAIR va changer pour vous</h3>
-        <ul class="pitch-list">
-          <li><div class="check-icon" style="background:rgba(0,120,212,0.15);color:#0078D4;font-size:10px;font-weight:700;">✓</div>Vous apprendrez à naviguer dans Windows 11 sans stress en moins de 2 jours</li>
-          <li><div class="check-icon" style="background:rgba(0,120,212,0.15);color:#0078D4;font-size:10px;font-weight:700;">✓</div>Fini les appels au technicien pour des problèmes simples</li>
-          <li><div class="check-icon" style="background:rgba(0,120,212,0.15);color:#0078D4;font-size:10px;font-weight:700;">✓</div>15 modules vidéo clairs, sans jargon, adaptés aux débutants</li>
-          <li><div class="check-icon" style="background:rgba(0,120,212,0.15);color:#0078D4;font-size:10px;font-weight:700;">✓</div>Le guide PDF de maintenance inclus devient votre bible PC</li>
+        <ul class="qw-benefits">
+          <li><div class="qw-check">✓</div>Naviguer dans Windows 11 avec confiance en moins de 2 jours</li>
+          <li><div class="qw-check">✓</div>Fini les appels au technicien pour des pannes simples</li>
+          <li><div class="qw-check">✓</div>15 modules vidéo clairs, sans jargon, adaptés aux débutants</li>
+          <li><div class="qw-check">✓</div>Le guide PDF de maintenance devient votre bible PC</li>
         </ul>
       </div>
     </div>
 
-    <div id="result-intermediaire" class="result-block">
-      <div class="result-card" style="background:#0f2744;color:#fff;">
-        <div class="result-level" style="color:#60aaff;">Niveau 2 — Intermédiaire</div>
-        <div class="result-title">L'Utilisateur Bloqué</div>
-        <div class="result-desc" style="color:rgba(255,255,255,0.75);">Vous vous débrouillez pour les tâches courantes mais vous buttez régulièrement sur des problèmes que vous ne savez pas résoudre seul. Il vous manque une méthode structurée pour combler ces lacunes.</div>
-        <div class="result-score-bar"><div class="result-score-fill" style="width:50%"></div></div>
-        <div class="result-score-label">Potentiel de progression : élevé</div>
+    <div id="qwR1" class="qw-hidden">
+      <div class="qw-result-card d2">
+        <div class="qw-greet" id="qwGreet1"></div>
+        <div class="qw-result-level">Niveau 2 — Intermédiaire</div>
+        <div class="qw-result-title">L'Utilisateur Bloqué</div>
+        <div class="qw-result-desc">Vous vous débrouillez pour les tâches courantes mais vous buttez régulièrement sur des problèmes non résolus. Il vous manque une méthode structurée. WINCLAIR comble toutes vos lacunes en 8 jours chrono.</div>
+        <div class="qw-score-bar"><div class="qw-score-fill" id="qwFill1"></div></div>
+        <div class="qw-score-label">Potentiel de progression : élevé</div>
       </div>
-      <div class="pitch-card">
+      <div class="qw-pitch">
         <h3>Ce que WINCLAIR va changer pour vous</h3>
-        <ul class="pitch-list">
-          <li><div class="check-icon" style="background:rgba(0,120,212,0.15);color:#0078D4;font-size:10px;font-weight:700;">✓</div>Vous allez combler toutes vos lacunes en 8 jours avec une méthode claire</li>
-          <li><div class="check-icon" style="background:rgba(0,120,212,0.15);color:#0078D4;font-size:10px;font-weight:700;">✓</div>Vous saurez résoudre 90% des pannes courantes sans aide extérieure</li>
-          <li><div class="check-icon" style="background:rgba(0,120,212,0.15);color:#0078D4;font-size:10px;font-weight:700;">✓</div>Les raccourcis clavier vont tripler votre vitesse de travail</li>
-          <li><div class="check-icon" style="background:rgba(0,120,212,0.15);color:#0078D4;font-size:10px;font-weight:700;">✓</div>Le groupe WhatsApp vous donne accès à des experts pour vos questions</li>
+        <ul class="qw-benefits">
+          <li><div class="qw-check">✓</div>Combler toutes vos lacunes en 8 jours avec une méthode claire</li>
+          <li><div class="qw-check">✓</div>Résoudre 90% des pannes courantes sans aide extérieure</li>
+          <li><div class="qw-check">✓</div>Les raccourcis clavier vont tripler votre vitesse de travail</li>
+          <li><div class="qw-check">✓</div>Le groupe WhatsApp vous donne accès à des experts 7j/7</li>
         </ul>
       </div>
     </div>
 
-    <div id="result-avance" class="result-block">
-      <div class="result-card" style="background:#0a1e3d;color:#fff;">
-        <div class="result-level" style="color:#60aaff;">Niveau 3 — Avancé</div>
-        <div class="result-title">Le Pro En Devenir</div>
-        <div class="result-desc" style="color:rgba(255,255,255,0.75);">Vous avez un bon niveau mais il vous manque encore les techniques avancées qui font la différence. Vous pouvez devenir la référence Windows 11 dans votre entourage professionnel ou familial.</div>
-        <div class="result-score-bar"><div class="result-score-fill" style="width:80%"></div></div>
-        <div class="result-score-label">Potentiel de progression : ciblé et efficace</div>
+    <div id="qwR2" class="qw-hidden">
+      <div class="qw-result-card d3">
+        <div class="qw-greet" id="qwGreet2"></div>
+        <div class="qw-result-level">Niveau 3 — Avancé</div>
+        <div class="qw-result-title">Le Pro En Devenir</div>
+        <div class="qw-result-desc">Vous avez un bon niveau mais il vous manque les techniques avancées qui font la vraie différence. WINCLAIR vous propulse au niveau expert et vous positionne comme référence Windows 11 dans votre entourage professionnel.</div>
+        <div class="qw-score-bar"><div class="qw-score-fill" id="qwFill2"></div></div>
+        <div class="qw-score-label">Potentiel de progression : ciblé et efficace</div>
       </div>
-      <div class="pitch-card">
+      <div class="qw-pitch">
         <h3>Ce que WINCLAIR va changer pour vous</h3>
-        <ul class="pitch-list">
-          <li><div class="check-icon" style="background:rgba(0,120,212,0.15);color:#0078D4;font-size:10px;font-weight:700;">✓</div>Les modules avancés (sécurité, réseau, virtualisation) vont vous élever au niveau expert</li>
-          <li><div class="check-icon" style="background:rgba(0,120,212,0.15);color:#0078D4;font-size:10px;font-weight:700;">✓</div>Vous maîtriserez enfin les outils professionnels intégrés à Windows 11</li>
-          <li><div class="check-icon" style="background:rgba(0,120,212,0.15);color:#0078D4;font-size:10px;font-weight:700;">✓</div>Positionnez-vous comme référent IT dans votre entreprise ou votre réseau</li>
-          <li><div class="check-icon" style="background:rgba(0,120,212,0.15);color:#0078D4;font-size:10px;font-weight:700;">✓</div>8 jours pour passer de bon utilisateur à véritable expert autonome</li>
+        <ul class="qw-benefits">
+          <li><div class="qw-check">✓</div>Les modules avancés : sécurité, réseau, virtualisation</li>
+          <li><div class="qw-check">✓</div>Maîtriser tous les outils professionnels intégrés à Windows 11</li>
+          <li><div class="qw-check">✓</div>Devenir la référence IT dans votre entreprise ou réseau</li>
+          <li><div class="qw-check">✓</div>8 jours pour passer de bon utilisateur à véritable expert</li>
         </ul>
       </div>
     </div>
 
-    <button class="cta-btn" onclick="onclick="window.open('https://zapgnstb.mychariow.shop/winclair', '_blank')"">Je veux maîtriser Windows 11 avec WINCLAIR →</button>
-    <div class="bonus-strip">
-      Inclus dans WINCLAIR : <strong>Guide PDF de maintenance</strong> + <strong>Guide raccourcis clavier</strong> + <strong>Accès groupe WhatsApp</strong>
-    </div>
-    <div style="text-align:center;margin-top:1rem;">
-      <button class="restart-btn" onclick="restartQuiz()">↺ Refaire le quiz</button>
-    </div>
+    <div class="qw-bonus">🎁 <strong>3 BONUS INCLUS</strong> avec WINCLAIR :<br>Guide PDF de maintenance · Guide raccourcis clavier · Groupe WhatsApp exclusif</div>
+    <button class="qw-cta" onclick="window.open('https://zapgnstb.mychariow.shop/winclair','_blank')">Je veux maîtriser Windows 11 avec WINCLAIR →</button>
+    <div class="qw-payment">💳 Wave · Orange Money · MTN MoMo</div>
+    <button class="qw-restart" onclick="qwRestart()">↺ Refaire le quiz</button>
   </div>
+
 </div>
-
 <script>
-  var scores = [null, null, null, null, null, null, null];
-  var current = 0;
+var qwScores=[null,null,null,null,null,null,null];
+var qwProspect={prenom:'',nom:'',email:'',whatsapp:''};
 
-  function select(btn) {
-    var q = parseInt(btn.closest('.question-block').dataset.q);
-    var opts = btn.closest('.options').querySelectorAll('.option-btn');
-    opts.forEach(function(o) { o.classList.remove('selected'); });
-    btn.classList.add('selected');
-    scores[q] = parseInt(btn.dataset.score);
-    var nextBtn = document.getElementById('next-' + q);
-    if (nextBtn) { nextBtn.classList.add('enabled'); }
-  }
+function qwStartQuiz(){
+  var p=document.getElementById('cfPrenom').value.trim();
+  var n=document.getElementById('cfNom').value.trim();
+  var e=document.getElementById('cfEmail').value.trim();
+  var w=document.getElementById('cfWa').value.trim();
+  var ok=true;
+  function showErr(id,inputId){document.getElementById(id).style.display='block';document.getElementById(inputId).classList.add('error');}
+  function hideErr(id,inputId){document.getElementById(id).style.display='none';document.getElementById(inputId).classList.remove('error');}
+  if(!p){showErr('errPrenom','cfPrenom');ok=false;}else{hideErr('errPrenom','cfPrenom');}
+  if(!n){showErr('errNom','cfNom');ok=false;}else{hideErr('errNom','cfNom');}
+  if(!e||e.indexOf('@')<0){showErr('errEmail','cfEmail');ok=false;}else{hideErr('errEmail','cfEmail');}
+  if(!w){showErr('errWa','cfWa');ok=false;}else{hideErr('errWa','cfWa');}
+  if(!ok)return;
+  qwProspect={prenom:p,nom:n,email:e,whatsapp:w};
+  document.getElementById('qwCapture').classList.add('qw-hidden');
+  document.getElementById('qwBody').classList.remove('qw-hidden');
+}
 
-  function nextQ(q) {
-    if (scores[q] === null) return;
-    var blocks = document.querySelectorAll('.question-block');
-    blocks[q].classList.remove('active');
-    if (q + 1 < blocks.length) {
-      blocks[q + 1].classList.add('active');
-      current = q + 1;
-      updateProgress(q + 1);
-    }
-  }
+function qwSelect(btn,q){
+  var opts=btn.closest('.qw-options').querySelectorAll('.qw-opt');
+  opts.forEach(function(o){o.classList.remove('selected')});
+  btn.classList.add('selected');
+  qwScores[q]=parseInt(btn.dataset.score);
+  var nb=document.getElementById('qwNext'+q);
+  if(nb)nb.classList.add('on');
+}
 
-  function prevQ(q) {
-    var blocks = document.querySelectorAll('.question-block');
-    blocks[q].classList.remove('active');
-    blocks[q - 1].classList.add('active');
-    current = q - 1;
-    updateProgress(q - 1);
-  }
+function qwNext(q){
+  if(qwScores[q]===null)return;
+  document.getElementById('qwQ'+q).classList.add('qw-hidden');
+  var nq=q+1;
+  if(nq<7){document.getElementById('qwQ'+nq).classList.remove('qw-hidden');qwUpdateProg(nq);}
+}
 
-  function updateProgress(q) {
-    var pct = Math.round(((q + 1) / 7) * 100);
-    document.getElementById('prog-fill').style.width = pct + '%';
-    document.getElementById('prog-label').textContent = 'Question ' + (q + 1) + ' sur 7';
-  }
+function qwPrev(q){
+  document.getElementById('qwQ'+q).classList.add('qw-hidden');
+  document.getElementById('qwQ'+(q-1)).classList.remove('qw-hidden');
+  qwUpdateProg(q-1);
+}
 
-  function showResult() {
-    if (scores[6] === null) return;
-    var total = scores.reduce(function(a, b) { return a + (b || 0); }, 0);
-    var max = 18;
-    var pct = total / max;
+function qwUpdateProg(q){
+  var pct=Math.round(((q+1)/7)*100);
+  document.getElementById('qwProgFill').style.width=pct+'%';
+  document.getElementById('qwProgLabel').textContent='Question '+(q+1)+' sur 7';
+  document.getElementById('qwProgPct').textContent=pct+'%';
+}
 
-    document.getElementById('quiz-body').style.display = 'none';
-    document.getElementById('result-area').style.display = 'block';
+function qwShowResult(){
+  if(qwScores[6]===null)return;
+  document.getElementById('qwBody').classList.add('qw-hidden');
+  document.getElementById('qwResult').classList.remove('qw-hidden');
+  var total=qwScores.reduce(function(a,b){return a+(b||0)},0);
+  var pct=total/18;
+  var level=pct<=0.33?0:pct<=0.66?1:2;
+  var widths=['20%','55%','85%'];
+  document.getElementById('qwR'+level).classList.remove('qw-hidden');
+  var greetEl=document.getElementById('qwGreet'+level);
+  if(greetEl)greetEl.textContent='Bonjour '+qwProspect.prenom+' 👋';
+  setTimeout(function(){document.getElementById('qwFill'+level).style.width=widths[level];},100);
+}
 
-    var level;
-    if (pct <= 0.33) level = 'debutant';
-    else if (pct <= 0.66) level = 'intermediaire';
-    else level = 'avance';
-
-    document.getElementById('result-' + level).classList.add('active');
-  }
-
-  function restartQuiz() {
-    scores = [null, null, null, null, null, null, null];
-    document.getElementById('result-area').style.display = 'none';
-    document.querySelectorAll('.result-block').forEach(function(b) { b.classList.remove('active'); });
-    document.querySelectorAll('.question-block').forEach(function(b) { b.classList.remove('active'); });
-    document.querySelectorAll('.option-btn').forEach(function(b) { b.classList.remove('selected'); });
-    document.querySelectorAll('.btn-next').forEach(function(b) { b.classList.remove('enabled'); });
-    document.querySelector('.question-block[data-q="0"]').classList.add('active');
-    document.getElementById('quiz-body').style.display = 'block';
-    updateProgress(0);
-  }
+function qwRestart(){
+  qwScores=[null,null,null,null,null,null,null];
+  document.getElementById('qwResult').classList.add('qw-hidden');
+  ['qwR0','qwR1','qwR2'].forEach(function(id){document.getElementById(id).classList.add('qw-hidden')});
+  document.querySelectorAll('.qw-opt').forEach(function(b){b.classList.remove('selected')});
+  document.querySelectorAll('.qw-btn-next').forEach(function(b){b.classList.remove('on')});
+  for(var i=1;i<7;i++)document.getElementById('qwQ'+i).classList.add('qw-hidden');
+  document.getElementById('qwQ0').classList.remove('qw-hidden');
+  document.getElementById('qwBody').classList.add('qw-hidden');
+  document.getElementById('qwCapture').classList.remove('qw-hidden');
+  document.getElementById('qwProgFill').style.width='14%';
+  document.getElementById('qwProgLabel').textContent='Question 1 sur 7';
+  document.getElementById('qwProgPct').textContent='14%';
+}
 </script>
+</body>
+</html>
