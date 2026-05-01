@@ -3,374 +3,1050 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Quiz WINCLAIR – Quel niveau Windows 11 êtes-vous ?</title>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<title>Quiz WINCLAIR — Quel est ton vrai niveau Windows ?</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'DM Sans',sans-serif;background:#0a1628;color:#fff;min-height:100vh}
-.qw-wrap{max-width:640px;margin:0 auto;padding:20px 16px 60px}
-.qw-header{text-align:center;padding:40px 24px 36px}
-.qw-badge{display:inline-block;background:rgba(0,120,212,.25);color:#60aaff;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:16px;font-family:'Sora',sans-serif;border:1px solid rgba(96,170,255,.2)}
-.qw-h1{font-family:'Sora',sans-serif;font-size:clamp(22px,5vw,30px);font-weight:800;line-height:1.25;margin-bottom:12px;background:linear-gradient(135deg,#fff 60%,#60aaff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.qw-sub{font-size:15px;color:rgba(255,255,255,.6);line-height:1.6;margin-bottom:20px}
-.qw-meta{display:flex;justify-content:center;gap:20px;font-size:12px;color:rgba(255,255,255,.35)}
-@keyframes qwFadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+  :root {
+    --bleu-nuit: #0A0E1A;
+    --bleu-fonce: #0D1530;
+    --bleu-moyen: #111D40;
+    --bleu-bord: #1E2D5A;
+    --bleu-clair: #1B3A8C;
+    --blanc: #FFFFFF;
+    --blanc-dim: #C8D0E8;
+    --blanc-pale: #8A96B8;
+    --or: #F5C518;
+    --or-pale: #FFF3B0;
+    --rouge: #F85149;
+    --vert-ok: #3DD68C;
+  }
 
-/* FORMULAIRE */
-.qw-capture{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:32px 28px;animation:qwFadeIn .4s ease}
-.qw-capture-title{font-family:'Sora',sans-serif;font-size:20px;font-weight:700;color:#fff;text-align:center;margin-bottom:8px}
-.qw-capture-sub{font-size:14px;color:rgba(255,255,255,.55);text-align:center;margin-bottom:28px;line-height:1.6}
-.qw-field{margin-bottom:14px}
-.qw-field label{display:block;font-size:11px;font-weight:700;color:rgba(255,255,255,.45);letter-spacing:.8px;text-transform:uppercase;font-family:'Sora',sans-serif;margin-bottom:6px}
-.qw-input{width:100%;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);border-radius:10px;padding:13px 16px;font-size:14px;color:#fff;font-family:'DM Sans',sans-serif;outline:none;transition:all .15s}
-.qw-input::placeholder{color:rgba(255,255,255,.22)}
-.qw-input:focus{border-color:#0078D4;background:rgba(0,120,212,.08)}
-.qw-input.err{border-color:#ef4444}
-.qw-field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.qw-err{font-size:11px;color:#ef4444;margin-top:4px;display:none;font-family:'Sora',sans-serif}
-.qw-start-btn{width:100%;background:linear-gradient(135deg,#0078D4,#005fa3);border:none;border-radius:12px;padding:16px;font-size:16px;font-weight:700;color:#fff;cursor:pointer;font-family:'Sora',sans-serif;transition:all .2s;margin-top:8px}
-.qw-start-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,120,212,.4)}
-.qw-privacy{font-size:11px;color:rgba(255,255,255,.22);text-align:center;margin-top:12px}
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-/* PROGRESS */
-.qw-progress-wrap{margin-bottom:28px}
-.qw-pi{display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,.4);margin-bottom:8px;font-family:'Sora',sans-serif}
-.qw-pb{height:4px;background:rgba(255,255,255,.08);border-radius:4px;overflow:hidden}
-.qw-pf{height:100%;background:linear-gradient(90deg,#0078D4,#60aaff);border-radius:4px;transition:width .5s cubic-bezier(.4,0,.2,1)}
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bleu-nuit);
+    color: var(--blanc);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
 
-/* QUESTIONS */
-.qw-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:28px 24px;animation:qwFadeIn .35s ease}
-.qw-qn{font-size:10px;font-weight:700;letter-spacing:2px;color:#0078D4;text-transform:uppercase;font-family:'Sora',sans-serif;margin-bottom:10px}
-.qw-qt{font-family:'Sora',sans-serif;font-size:clamp(15px,3.5vw,18px);font-weight:700;color:#fff;margin-bottom:22px;line-height:1.4}
-.qw-opts{display:flex;flex-direction:column;gap:10px}
-.qw-opt{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:14px 16px;cursor:pointer;font-size:14px;color:rgba(255,255,255,.8);font-family:'DM Sans',sans-serif;text-align:left;display:flex;align-items:center;gap:12px;transition:all .18s ease;line-height:1.4}
-.qw-opt:hover{border-color:rgba(0,120,212,.5);background:rgba(0,120,212,.08);color:#fff}
-.qw-opt.sel{border-color:#0078D4;background:rgba(0,120,212,.15);color:#fff}
-.qw-ol{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:rgba(255,255,255,.5);flex-shrink:0;font-family:'Sora',sans-serif;transition:all .18s}
-.qw-opt.sel .qw-ol{background:#0078D4;color:#fff}
-.qw-nav{display:flex;justify-content:space-between;align-items:center;margin-top:22px}
-.qw-bk{background:transparent;border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:10px 18px;font-size:13px;color:rgba(255,255,255,.45);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s}
-.qw-bk:hover{border-color:rgba(255,255,255,.25);color:rgba(255,255,255,.7)}
-.qw-nx{background:#0078D4;border:none;border-radius:10px;padding:12px 28px;font-size:14px;font-weight:600;color:#fff;cursor:pointer;font-family:'Sora',sans-serif;transition:all .18s;opacity:.3;pointer-events:none}
-.qw-nx.on{opacity:1;pointer-events:all}
-.qw-nx.on:hover{background:#005fa3;transform:translateY(-1px)}
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 50% at 15% 0%, rgba(27,58,140,0.35) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 40% at 85% 100%, rgba(245,197,24,0.07) 0%, transparent 55%),
+      radial-gradient(ellipse 40% 30% at 50% 50%, rgba(27,58,140,0.1) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
 
-/* RÉSULTAT */
-.qw-result{animation:qwFadeIn .4s ease}
-.qw-rc{border-radius:20px;padding:28px 24px;margin-bottom:20px}
-.qw-rc.d1{background:linear-gradient(135deg,#0a1e40,#0d2a5a)}
-.qw-rc.d2{background:linear-gradient(135deg,#1a1200,#2a1f00)}
-.qw-rc.d3{background:linear-gradient(135deg,#001a0d,#002a15)}
-.qw-greet{font-family:'Sora',sans-serif;font-size:15px;margin-bottom:8px;font-weight:600}
-.d1 .qw-greet{color:#60aaff}.d2 .qw-greet{color:#fbbf24}.d3 .qw-greet{color:#34d399}
-.qw-rlv{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;font-family:'Sora',sans-serif;margin-bottom:8px;opacity:.6}
-.qw-rtitle{font-family:'Sora',sans-serif;font-size:22px;font-weight:800;color:#fff;margin-bottom:10px}
-.qw-rdesc{font-size:14px;color:rgba(255,255,255,.7);line-height:1.7;margin-bottom:18px}
-.qw-sb{background:rgba(255,255,255,.1);border-radius:4px;height:4px;margin-bottom:6px;overflow:hidden}
-.qw-sf{height:100%;border-radius:4px;transition:width 1s ease .3s}
-.d1 .qw-sf{background:linear-gradient(90deg,#0078D4,#60aaff);width:0}
-.d2 .qw-sf{background:linear-gradient(90deg,#f59e0b,#fbbf24);width:0}
-.d3 .qw-sf{background:linear-gradient(90deg,#059669,#34d399);width:0}
-.qw-sl{font-size:11px;color:rgba(255,255,255,.4);font-family:'Sora',sans-serif}
-.qw-pitch{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:24px;margin-bottom:16px}
-.qw-pitch h3{font-family:'Sora',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:16px}
-.qw-bens{list-style:none;display:flex;flex-direction:column;gap:10px}
-.qw-bens li{display:flex;gap:10px;font-size:13px;color:rgba(255,255,255,.7);line-height:1.5;align-items:flex-start}
-.qw-ck{width:18px;height:18px;border-radius:50%;background:rgba(0,120,212,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;font-size:9px;color:#60aaff;font-weight:700}
-.qw-bonus{background:rgba(255,215,0,.07);border:1px solid rgba(255,215,0,.2);border-radius:14px;padding:14px 18px;margin-bottom:16px;font-size:13px;color:rgba(255,255,255,.8);text-align:center;line-height:1.6}
-.qw-bonus strong{color:#ffd700}
-.qw-cta{width:100%;background:linear-gradient(135deg,#0078D4,#005fa3);border:none;border-radius:14px;padding:18px;font-size:16px;font-weight:700;color:#fff;cursor:pointer;font-family:'Sora',sans-serif;transition:all .2s;margin-bottom:10px}
-.qw-cta:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,120,212,.35)}
-.qw-pay{font-size:11px;color:rgba(255,255,255,.3);text-align:center;margin-bottom:20px}
-.qw-rst{background:transparent;border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:10px 20px;font-size:13px;color:rgba(255,255,255,.4);cursor:pointer;font-family:'DM Sans',sans-serif;display:block;margin:0 auto;transition:all .15s}
-.qw-rst:hover{border-color:rgba(255,255,255,.25);color:rgba(255,255,255,.65)}
-.qw-hidden{display:none!important}
-@media(max-width:480px){.qw-field-row{grid-template-columns:1fr}.qw-capture{padding:24px 18px}}
+  /* Grid lines bg */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(27,58,140,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(27,58,140,0.06) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 24px 16px 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ===== HEADER ===== */
+  .header {
+    text-align: center;
+    padding: 32px 0 28px;
+  }
+
+  .logo-wrap {
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+  }
+
+  .logo-img {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(245,197,24,0.3);
+    box-shadow: 0 0 20px rgba(27,58,140,0.5);
+  }
+
+  .logo-info {
+    text-align: left;
+  }
+
+  .logo-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--blanc);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  .logo-tagline {
+    font-size: 11px;
+    color: var(--blanc-pale);
+    letter-spacing: 1px;
+    margin-top: 3px;
+  }
+
+  .promo-strip {
+    background: linear-gradient(135deg, var(--or), #E8A800);
+    color: var(--bleu-nuit);
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 7px 20px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 22px;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(245,197,24,0.4); }
+    50% { box-shadow: 0 0 0 8px rgba(245,197,24,0); }
+  }
+
+  .header h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.7rem, 5.5vw, 2.6rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 14px;
+  }
+
+  .header h1 span { color: var(--or); }
+
+  .header p {
+    color: var(--blanc-dim);
+    font-size: 0.95rem;
+    line-height: 1.65;
+    max-width: 460px;
+    margin: 0 auto 20px;
+  }
+
+  .header-stats {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .hstat {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 0.82rem;
+    color: var(--blanc-pale);
+  }
+
+  .hstat-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--or);
+  }
+
+  /* ===== PROGRESS ===== */
+  .progress-wrap {
+    margin: 24px 0 20px;
+    display: none;
+  }
+
+  .progress-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .progress-label {
+    font-size: 0.8rem;
+    color: var(--blanc-pale);
+    font-weight: 500;
+  }
+
+  .progress-pct {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem;
+    color: var(--or);
+    font-weight: 700;
+  }
+
+  .progress-bar {
+    height: 5px;
+    background: var(--bleu-moyen);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--bleu-clair), var(--or));
+    border-radius: 3px;
+    transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  /* ===== SCREENS ===== */
+  .screen { display: none; }
+
+  .screen.active {
+    display: block;
+    animation: slideUp 0.45s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===== CARDS ===== */
+  .card {
+    background: var(--bleu-fonce);
+    border: 1px solid var(--bleu-bord);
+    border-radius: 20px;
+    padding: 32px 28px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+  }
+
+  /* ===== CAPTURE ===== */
+  .capture-icon {
+    width: 52px; height: 52px;
+    background: linear-gradient(135deg, var(--bleu-clair), #0F2461);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 18px;
+    border: 1px solid var(--bleu-bord);
+  }
+
+  .card h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+    color: var(--blanc);
+  }
+
+  .card > p {
+    color: var(--blanc-pale);
+    font-size: 0.9rem;
+    margin-bottom: 26px;
+    line-height: 1.6;
+  }
+
+  .form-group { margin-bottom: 15px; }
+
+  .form-group label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--blanc-dim);
+    margin-bottom: 7px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .form-group input {
+    width: 100%;
+    background: var(--bleu-moyen);
+    border: 1.5px solid var(--bleu-bord);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 0.93rem;
+    color: var(--blanc);
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s;
+    outline: none;
+  }
+
+  .form-group input:focus {
+    border-color: var(--or);
+    background: rgba(245,197,24,0.04);
+    box-shadow: 0 0 0 3px rgba(245,197,24,0.1);
+  }
+
+  .form-group input::placeholder { color: #3A4A6A; }
+
+  /* ===== QUIZ ===== */
+  .q-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .q-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--or);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .q-score-live {
+    font-size: 0.78rem;
+    color: var(--blanc-pale);
+    background: var(--bleu-moyen);
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--bleu-bord);
+  }
+
+  .q-score-live span { color: var(--vert-ok); font-weight: 700; }
+
+  .question-text {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1rem, 3vw, 1.18rem);
+    font-weight: 700;
+    line-height: 1.45;
+    margin-bottom: 24px;
+    color: var(--blanc);
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+
+  .option {
+    background: var(--bleu-moyen);
+    border: 1.5px solid var(--bleu-bord);
+    border-radius: 12px;
+    padding: 13px 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-align: left;
+  }
+
+  .option:hover:not(.locked) {
+    border-color: var(--or);
+    background: rgba(245,197,24,0.06);
+    transform: translateX(5px);
+  }
+
+  .option.selected { border-color: var(--or); background: rgba(245,197,24,0.08); }
+  .option.correct { border-color: var(--vert-ok); background: rgba(61,214,140,0.1); }
+  .option.wrong { border-color: var(--rouge); background: rgba(248,81,73,0.1); }
+  .option.locked { cursor: not-allowed; }
+
+  .opt-letter {
+    width: 30px; height: 30px;
+    border-radius: 8px;
+    background: var(--bleu-bord);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 800;
+    flex-shrink: 0;
+    transition: all 0.2s;
+    color: var(--blanc-dim);
+  }
+
+  .option.selected .opt-letter { background: var(--or); color: var(--bleu-nuit); }
+  .option.correct .opt-letter { background: var(--vert-ok); color: var(--bleu-nuit); }
+  .option.wrong .opt-letter { background: var(--rouge); color: white; }
+
+  .opt-text {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: var(--blanc-dim);
+  }
+
+  .option.correct .opt-text { color: var(--vert-ok); }
+  .option.wrong .opt-text { color: var(--rouge); }
+
+  .feedback-box {
+    margin-top: 14px;
+    padding: 13px 16px;
+    border-radius: 10px;
+    font-size: 0.86rem;
+    line-height: 1.65;
+    display: none;
+  }
+
+  .feedback-box.ok {
+    background: rgba(61,214,140,0.08);
+    border: 1px solid rgba(61,214,140,0.25);
+    color: #86EFAC;
+    display: block;
+  }
+
+  .feedback-box.ko {
+    background: rgba(248,81,73,0.08);
+    border: 1px solid rgba(248,81,73,0.25);
+    color: #FCA5A5;
+    display: block;
+  }
+
+  /* ===== BUTTONS ===== */
+  .btn {
+    display: block;
+    width: 100%;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    padding: 14px 24px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    text-decoration: none;
+    margin-top: 16px;
+  }
+
+  .btn-or {
+    background: linear-gradient(135deg, var(--or), #E8A800);
+    color: var(--bleu-nuit);
+  }
+
+  .btn-or:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 28px rgba(245,197,24,0.35);
+  }
+
+  .btn-blue {
+    background: linear-gradient(135deg, #1B3A8C, #0F2461);
+    color: var(--blanc);
+    border: 1px solid var(--bleu-bord);
+  }
+
+  .btn-blue:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(27,58,140,0.4);
+    border-color: var(--or);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--blanc-pale);
+    border: 1px solid var(--bleu-bord);
+    font-size: 0.85rem;
+  }
+
+  .btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  /* ===== RÉSULTATS ===== */
+  .result-top {
+    text-align: center;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--bleu-bord);
+    margin-bottom: 28px;
+  }
+
+  .score-ring {
+    width: 120px; height: 120px;
+    position: relative;
+    margin: 0 auto 20px;
+  }
+
+  .score-ring svg {
+    position: absolute;
+    inset: 0;
+    transform: rotate(-90deg);
+  }
+
+  .score-inner {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .score-big {
+    font-family: 'Syne', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1;
+    color: var(--blanc);
+  }
+
+  .score-sub {
+    font-size: 0.7rem;
+    color: var(--blanc-pale);
+    margin-top: 2px;
+  }
+
+  .niveau-badge {
+    display: inline-block;
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 800;
+    padding: 6px 20px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+  }
+
+  .nb-debutant { background: rgba(248,81,73,0.15); color: #FCA5A5; border: 1px solid rgba(248,81,73,0.3); }
+  .nb-intermediaire { background: rgba(245,197,24,0.12); color: var(--or); border: 1px solid rgba(245,197,24,0.3); }
+  .nb-avance { background: rgba(61,214,140,0.12); color: var(--vert-ok); border: 1px solid rgba(61,214,140,0.3); }
+  .nb-expert { background: rgba(88,166,255,0.12); color: #93C5FD; border: 1px solid rgba(88,166,255,0.3); }
+
+  .result-desc {
+    color: var(--blanc-dim);
+    font-size: 0.92rem;
+    line-height: 1.65;
+    max-width: 460px;
+    margin: 0 auto;
+  }
+
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+
+  .sbox {
+    background: var(--bleu-moyen);
+    border: 1px solid var(--bleu-bord);
+    border-radius: 14px;
+    padding: 16px 10px;
+    text-align: center;
+  }
+
+  .sbox-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.7rem;
+    font-weight: 800;
+    display: block;
+    line-height: 1;
+    margin-bottom: 5px;
+  }
+
+  .sbox-lbl {
+    font-size: 0.72rem;
+    color: var(--blanc-pale);
+    line-height: 1.3;
+  }
+
+  /* PROMO CTA */
+  .promo-cta {
+    background: linear-gradient(135deg, rgba(27,58,140,0.4), rgba(10,14,26,0.6));
+    border: 1px solid rgba(245,197,24,0.25);
+    border-radius: 18px;
+    padding: 28px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .promo-cta::before {
+    content: '';
+    position: absolute;
+    top: -30px; left: -30px;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, rgba(245,197,24,0.1), transparent 70%);
+    pointer-events: none;
+  }
+
+  .promo-label {
+    display: inline-block;
+    background: var(--or);
+    color: var(--bleu-nuit);
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+  }
+
+  .promo-cta h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+    color: var(--blanc);
+  }
+
+  .promo-cta p {
+    color: var(--blanc-pale);
+    font-size: 0.86rem;
+    margin-bottom: 18px;
+    line-height: 1.6;
+  }
+
+  .prix-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+  }
+
+  .prix-barre {
+    font-size: 1rem;
+    color: var(--blanc-pale);
+    text-decoration: line-through;
+    opacity: 0.6;
+  }
+
+  .prix-promo {
+    font-family: 'Syne', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--or);
+  }
+
+  .prix-eco {
+    background: rgba(61,214,140,0.15);
+    color: var(--vert-ok);
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(61,214,140,0.25);
+  }
+
+  .pay-badges {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+  }
+
+  .pay-b {
+    background: var(--bleu-moyen);
+    border: 1px solid var(--bleu-bord);
+    color: var(--blanc-pale);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 6px;
+  }
+
+  @media (max-width: 480px) {
+    .card { padding: 24px 18px; }
+    .stats-row { gap: 8px; }
+    .sbox-num { font-size: 1.4rem; }
+  }
 </style>
 </head>
 <body>
-<div class="qw-wrap">
+<div class="container">
 
-  <div class="qw-header">
-    <div class="qw-badge">✦ Quiz Gratuit — WINCLAIR</div>
-    <h1 class="qw-h1">Quel niveau Windows 11<br>êtes-vous vraiment ?</h1>
-    <p class="qw-sub">7 questions · 2 minutes · Résultat + plan d'action personnalisé</p>
-    <div class="qw-meta"><span>⏱ 2 min</span><span>✦ 7 questions</span><span>✦ Résultat immédiat</span></div>
+  <!-- HEADER -->
+  <div class="header">
+    <div class="logo-wrap">
+      <img src="logo_Dream_Technology.png" alt="Dream Technology" class="logo-img">
+      <div class="logo-info">
+        <div class="logo-name">Dream Technology</div>
+        <div class="logo-tagline">Formation Digitale · Afrique</div>
+      </div>
+    </div>
+    <div class="promo-strip">🔥 Offre limitée — 70% de réduction</div>
+    <h1>Quel est ton vrai<br>niveau sur <span>Windows 11</span> ?</h1>
+    <p>Test de 10 questions pour savoir exactement où tu en es — et ce que tu dois travailler avant ton prochain entretien.</p>
+    <div class="header-stats">
+      <div class="hstat"><div class="hstat-dot"></div>10 questions</div>
+      <div class="hstat"><div class="hstat-dot"></div>Résultat immédiat</div>
+      <div class="hstat"><div class="hstat-dot"></div>100% gratuit</div>
+    </div>
   </div>
 
-  <!-- FORMULAIRE DE CAPTURE -->
-  <div id="qwCapture">
-    <div class="qw-capture">
-      <div class="qw-capture-title">Avant de commencer...</div>
-      <div class="qw-capture-sub">Entrez vos informations pour recevoir votre résultat personnalisé et votre plan d'action WINCLAIR gratuit.</div>
-      <div class="qw-field-row">
-        <div class="qw-field">
-          <label>Prénom *</label>
-          <input class="qw-input" type="text" id="cfP" placeholder="Ex: Kouamé">
-          <div class="qw-err" id="eP">Prénom requis</div>
+  <!-- PROGRESS -->
+  <div class="progress-wrap" id="progressWrap">
+    <div class="progress-top">
+      <span class="progress-label" id="pLabel">Question 1 sur 10</span>
+      <span class="progress-pct" id="pPct">10%</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="pFill" style="width:10%"></div>
+    </div>
+  </div>
+
+  <!-- SCREEN 1 : CAPTURE -->
+  <div class="screen active" id="s-capture">
+    <div class="card">
+      <div class="capture-icon">📋</div>
+      <h2>Avant de commencer</h2>
+      <p>Remplis ces informations pour recevoir ton résultat personnalisé et un plan d'action adapté à ton niveau.</p>
+      <div class="form-group">
+        <label>Prénom *</label>
+        <input type="text" id="prenom" placeholder="Ton prénom">
+      </div>
+      <div class="form-group">
+        <label>Email *</label>
+        <input type="email" id="email" placeholder="ton@email.com">
+      </div>
+      <div class="form-group">
+        <label>WhatsApp (avec indicatif)</label>
+        <input type="tel" id="whatsapp" placeholder="+225 07 00 00 00 00">
+      </div>
+      <button class="btn btn-or" onclick="startQuiz()">Démarrer le test →</button>
+    </div>
+  </div>
+
+  <!-- SCREEN 2 : QUIZ -->
+  <div class="screen" id="s-quiz">
+    <div class="card">
+      <div class="q-meta">
+        <div class="q-num" id="qNum">Question 1 / 10</div>
+        <div class="q-score-live">Score : <span id="scoreLive">0</span>/10</div>
+      </div>
+      <div class="question-text" id="qText"></div>
+      <div class="options" id="optWrap"></div>
+      <div class="feedback-box" id="fbBox"></div>
+      <button class="btn btn-blue" id="nextBtn" onclick="nextQ()" disabled>Continuer →</button>
+    </div>
+  </div>
+
+  <!-- SCREEN 3 : RÉSULTATS -->
+  <div class="screen" id="s-result">
+    <div class="card">
+
+      <div class="result-top">
+        <div class="score-ring">
+          <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="60" cy="60" r="52" stroke="#1E2D5A" stroke-width="8"/>
+            <circle cx="60" cy="60" r="52" stroke="url(#rg)" stroke-width="8"
+              stroke-linecap="round"
+              stroke-dasharray="326.7"
+              stroke-dashoffset="326.7"
+              id="scoreArc"/>
+            <defs>
+              <linearGradient id="rg" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#1B3A8C"/>
+                <stop offset="100%" stop-color="#F5C518"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <div class="score-inner">
+            <span class="score-big" id="scoreDisp">0/10</span>
+            <span class="score-sub">Score</span>
+          </div>
         </div>
-        <div class="qw-field">
-          <label>Nom *</label>
-          <input class="qw-input" type="text" id="cfN" placeholder="Ex: Traoré">
-          <div class="qw-err" id="eN">Nom requis</div>
+        <div class="niveau-badge" id="niveauBadge"></div>
+        <div class="result-desc" id="resultDesc"></div>
+      </div>
+
+      <div class="stats-row">
+        <div class="sbox">
+          <span class="sbox-num" id="sCorrect" style="color:var(--vert-ok)">0</span>
+          <span class="sbox-lbl">Bonnes réponses</span>
+        </div>
+        <div class="sbox">
+          <span class="sbox-num" id="sWrong" style="color:var(--rouge)">0</span>
+          <span class="sbox-lbl">À retravailler</span>
+        </div>
+        <div class="sbox">
+          <span class="sbox-num" id="sPct" style="color:var(--or)">0%</span>
+          <span class="sbox-lbl">Maîtrise</span>
         </div>
       </div>
-      <div class="qw-field">
-        <label>Adresse email *</label>
-        <input class="qw-input" type="email" id="cfE" placeholder="votre@gmail.com">
-        <div class="qw-err" id="eE">Email valide requis</div>
-      </div>
-      <div class="qw-field">
-        <label>Numéro WhatsApp *</label>
-        <input class="qw-input" type="tel" id="cfW" placeholder="Ex: +225 07 00 00 00 00">
-        <div class="qw-err" id="eW">Numéro WhatsApp requis</div>
-      </div>
-      <button class="qw-start-btn" onclick="qwStart()">Démarrer le quiz →</button>
-      <div class="qw-privacy">🔒 Données privées. Aucun spam. Désabonnement en 1 clic.</div>
-    </div>
-  </div>
 
-  <!-- QUIZ -->
-  <div id="qwBody" class="qw-hidden">
-    <div class="qw-progress-wrap">
-      <div class="qw-pi"><span id="qwPL">Question 1 sur 7</span><span id="qwPP">14%</span></div>
-      <div class="qw-pb"><div class="qw-pf" id="qwPF" style="width:14%"></div></div>
-    </div>
+      <div class="promo-cta">
+        <div class="promo-label">Offre de lancement limitée</div>
+        <h3 id="ctaH">Passe au niveau supérieur avec WINCLAIR</h3>
+        <p id="ctaP">15 modules vidéo pour maîtriser Windows 11 en 8 jours — depuis ton téléphone.</p>
+        <div class="prix-wrap">
+          <span class="prix-barre">15 000 FCFA</span>
+          <span class="prix-promo">4 500 FCFA</span>
+          <span class="prix-eco">-70%</span>
+        </div>
+        <a href="https://dreamtechnology.info/winclair" class="btn btn-or" target="_blank" style="max-width:420px;margin:0 auto;">
+          Je rejoins WINCLAIR à 4 500 FCFA →
+        </a>
+        <div class="pay-badges">
+          <span class="pay-b">📱 Wave</span>
+          <span class="pay-b">🟠 Orange Money</span>
+          <span class="pay-b">🟡 MTN MoMo</span>
+        </div>
+      </div>
 
-    <div class="qw-card" id="qwQ0">
-      <div class="qw-qn">Question 01</div>
-      <div class="qw-qt">Quand vous allumez votre PC, vous vous sentez...</div>
-      <div class="qw-opts">
-        <button class="qw-opt" data-score="0" onclick="qwSel(this,0)"><span class="qw-ol">A</span>Perdu(e) — je clique au hasard pour trouver ce dont j'ai besoin</button>
-        <button class="qw-opt" data-score="1" onclick="qwSel(this,0)"><span class="qw-ol">B</span>À l'aise pour les tâches basiques, mais bloqué(e) dès que ça se complique</button>
-        <button class="qw-opt" data-score="2" onclick="qwSel(this,0)"><span class="qw-ol">C</span>Confiant(e) — je sais où chercher, mais j'ai encore des zones d'ombre</button>
-        <button class="qw-opt" data-score="3" onclick="qwSel(this,0)"><span class="qw-ol">D</span>Très à l'aise — je configure tout moi-même sans aide</button>
-      </div>
-      <div class="qw-nav"><span></span><button class="qw-nx" id="qwN0" onclick="qwNext(0)">Suivant →</button></div>
+      <button class="btn btn-ghost" onclick="restart()" style="margin-top:12px;">↺ Refaire le test</button>
     </div>
-
-    <div class="qw-card qw-hidden" id="qwQ1">
-      <div class="qw-qn">Question 02</div>
-      <div class="qw-qt">Votre PC devient lent. Que faites-vous en premier ?</div>
-      <div class="qw-opts">
-        <button class="qw-opt" data-score="0" onclick="qwSel(this,1)"><span class="qw-ol">A</span>J'attends ou je redémarre sans vraiment comprendre pourquoi</button>
-        <button class="qw-opt" data-score="1" onclick="qwSel(this,1)"><span class="qw-ol">B</span>Je supprime quelques fichiers ou je vide la corbeille</button>
-        <button class="qw-opt" data-score="2" onclick="qwSel(this,1)"><span class="qw-ol">C</span>Je vérifie le Gestionnaire des tâches pour voir ce qui consomme les ressources</button>
-        <button class="qw-opt" data-score="3" onclick="qwSel(this,1)"><span class="qw-ol">D</span>Je nettoie les programmes au démarrage, libère la RAM et optimise le disque</button>
-      </div>
-      <div class="qw-nav"><button class="qw-bk" onclick="qwPrev(1)">← Retour</button><button class="qw-nx" id="qwN1" onclick="qwNext(1)">Suivant →</button></div>
-    </div>
-
-    <div class="qw-card qw-hidden" id="qwQ2">
-      <div class="qw-qn">Question 03</div>
-      <div class="qw-qt">Avez-vous déjà utilisé le menu Paramètres de Windows 11 ?</div>
-      <div class="qw-opts">
-        <button class="qw-opt" data-score="0" onclick="qwSel(this,2)"><span class="qw-ol">A</span>Non, je ne sais pas comment y accéder</button>
-        <button class="qw-opt" data-score="1" onclick="qwSel(this,2)"><span class="qw-ol">B</span>Oui, pour changer le fond d'écran ou le volume</button>
-        <button class="qw-opt" data-score="2" onclick="qwSel(this,2)"><span class="qw-ol">C</span>Oui, je gère les comptes utilisateurs et le Wi-Fi</button>
-        <button class="qw-opt" data-score="3" onclick="qwSel(this,2)"><span class="qw-ol">D</span>Oui, je configure aussi les mises à jour, la sécurité et les périphériques</button>
-      </div>
-      <div class="qw-nav"><button class="qw-bk" onclick="qwPrev(2)">← Retour</button><button class="qw-nx" id="qwN2" onclick="qwNext(2)">Suivant →</button></div>
-    </div>
-
-    <div class="qw-card qw-hidden" id="qwQ3">
-      <div class="qw-qn">Question 04</div>
-      <div class="qw-qt">Un ami vous dit "fais Ctrl + Shift + Esc". Vous savez à quoi ça sert ?</div>
-      <div class="qw-opts">
-        <button class="qw-opt" data-score="0" onclick="qwSel(this,3)"><span class="qw-ol">A</span>Pas du tout — les raccourcis clavier, ce n'est pas pour moi</button>
-        <button class="qw-opt" data-score="1" onclick="qwSel(this,3)"><span class="qw-ol">B</span>Je connais Ctrl+C et Ctrl+V, mais c'est à peu près tout</button>
-        <button class="qw-opt" data-score="2" onclick="qwSel(this,3)"><span class="qw-ol">C</span>Oui, c'est le Gestionnaire des tâches ! J'en connais une dizaine</button>
-        <button class="qw-opt" data-score="3" onclick="qwSel(this,3)"><span class="qw-ol">D</span>Bien sûr, et j'utilise aussi Win+X, Win+I, Alt+F4 au quotidien</button>
-      </div>
-      <div class="qw-nav"><button class="qw-bk" onclick="qwPrev(3)">← Retour</button><button class="qw-nx" id="qwN3" onclick="qwNext(3)">Suivant →</button></div>
-    </div>
-
-    <div class="qw-card qw-hidden" id="qwQ4">
-      <div class="qw-qn">Question 05</div>
-      <div class="qw-qt">Votre PC a eu un écran bleu (BSOD). Quelle a été votre réaction ?</div>
-      <div class="qw-opts">
-        <button class="qw-opt" data-score="0" onclick="qwSel(this,4)"><span class="qw-ol">A</span>Panique totale — j'ai appelé quelqu'un ou porté le PC en réparation</button>
-        <button class="qw-opt" data-score="1" onclick="qwSel(this,4)"><span class="qw-ol">B</span>J'ai redémarré et espéré que ça ne revienne pas</button>
-        <button class="qw-opt" data-score="2" onclick="qwSel(this,4)"><span class="qw-ol">C</span>J'ai noté le code d'erreur et cherché la solution sur internet</button>
-        <button class="qw-opt" data-score="3" onclick="qwSel(this,4)"><span class="qw-ol">D</span>J'ai diagnostiqué via l'Observateur d'événements et résolu moi-même</button>
-      </div>
-      <div class="qw-nav"><button class="qw-bk" onclick="qwPrev(4)">← Retour</button><button class="qw-nx" id="qwN4" onclick="qwNext(4)">Suivant →</button></div>
-    </div>
-
-    <div class="qw-card qw-hidden" id="qwQ5">
-      <div class="qw-qn">Question 06</div>
-      <div class="qw-qt">Avez-vous une licence Windows 11 originale sur votre PC ?</div>
-      <div class="qw-opts">
-        <button class="qw-opt" data-score="0" onclick="qwSel(this,5)"><span class="qw-ol">A</span>Je ne sais pas — je n'ai jamais vérifié</button>
-        <button class="qw-opt" data-score="1" onclick="qwSel(this,5)"><span class="qw-ol">B</span>Non, j'ai une version craquée — je ne savais pas que c'était un risque</button>
-        <button class="qw-opt" data-score="2" onclick="qwSel(this,5)"><span class="qw-ol">C</span>Oui, je crois que oui, mais je n'ai pas cherché à confirmer</button>
-        <button class="qw-opt" data-score="3" onclick="qwSel(this,5)"><span class="qw-ol">D</span>Oui, et je sais exactement où trouver ma clé de licence si besoin</button>
-      </div>
-      <div class="qw-nav"><button class="qw-bk" onclick="qwPrev(5)">← Retour</button><button class="qw-nx" id="qwN5" onclick="qwNext(5)">Suivant →</button></div>
-    </div>
-
-    <div class="qw-card qw-hidden" id="qwQ6">
-      <div class="qw-qn">Question 07</div>
-      <div class="qw-qt">Pourquoi voulez-vous vraiment maîtriser Windows 11 ?</div>
-      <div class="qw-opts">
-        <button class="qw-opt" data-score="0" onclick="qwSel(this,6)"><span class="qw-ol">A</span>Pour arrêter de dépendre des techniciens à chaque problème</button>
-        <button class="qw-opt" data-score="1" onclick="qwSel(this,6)"><span class="qw-ol">B</span>Pour être plus productif(ve) dans mon travail ou mes études</button>
-        <button class="qw-opt" data-score="2" onclick="qwSel(this,6)"><span class="qw-ol">C</span>Pour gérer le PC de mon entreprise ou de mes clients</button>
-        <button class="qw-opt" data-score="3" onclick="qwSel(this,6)"><span class="qw-ol">D</span>Pour tout maîtriser de A à Z et ne jamais être bloqué(e)</button>
-      </div>
-      <div class="qw-nav"><button class="qw-bk" onclick="qwPrev(6)">← Retour</button><button class="qw-nx" id="qwN6" onclick="qwRes()">Voir mon résultat →</button></div>
-    </div>
-  </div>
-
-  <!-- RÉSULTAT -->
-  <div id="qwResult" class="qw-hidden">
-    <div id="qwR0" class="qw-hidden">
-      <div class="qw-rc d1">
-        <div class="qw-greet" id="qwG0"></div>
-        <div class="qw-rlv">Niveau 1 — Débutant</div>
-        <div class="qw-rtitle">L'Explorateur Hésitant</div>
-        <div class="qw-rdesc">Windows 11 vous semble encore complexe et vous évitez les manipulations par peur de "tout casser". C'est tout à fait normal — WINCLAIR vous prend en main étape par étape dès le Jour 1.</div>
-        <div class="qw-sb"><div class="qw-sf" id="qwF0"></div></div>
-        <div class="qw-sl">Potentiel de progression : très élevé</div>
-      </div>
-      <div class="qw-pitch">
-        <h3>Ce que WINCLAIR va changer pour vous</h3>
-        <ul class="qw-bens">
-          <li><div class="qw-ck">✓</div>Naviguer dans Windows 11 avec confiance en moins de 2 jours</li>
-          <li><div class="qw-ck">✓</div>Fini les appels au technicien pour des pannes simples</li>
-          <li><div class="qw-ck">✓</div>15 modules vidéo clairs, sans jargon, adaptés aux débutants</li>
-          <li><div class="qw-ck">✓</div>Le guide PDF de maintenance devient votre bible PC</li>
-        </ul>
-      </div>
-    </div>
-    <div id="qwR1" class="qw-hidden">
-      <div class="qw-rc d2">
-        <div class="qw-greet" id="qwG1"></div>
-        <div class="qw-rlv">Niveau 2 — Intermédiaire</div>
-        <div class="qw-rtitle">L'Utilisateur Bloqué</div>
-        <div class="qw-rdesc">Vous vous débrouillez pour les tâches courantes mais vous buttez régulièrement sur des problèmes non résolus. WINCLAIR comble toutes vos lacunes en 8 jours chrono.</div>
-        <div class="qw-sb"><div class="qw-sf" id="qwF1"></div></div>
-        <div class="qw-sl">Potentiel de progression : élevé</div>
-      </div>
-      <div class="qw-pitch">
-        <h3>Ce que WINCLAIR va changer pour vous</h3>
-        <ul class="qw-bens">
-          <li><div class="qw-ck">✓</div>Combler toutes vos lacunes en 8 jours avec une méthode claire</li>
-          <li><div class="qw-ck">✓</div>Résoudre 90% des pannes courantes sans aide extérieure</li>
-          <li><div class="qw-ck">✓</div>Les raccourcis clavier vont tripler votre vitesse de travail</li>
-          <li><div class="qw-ck">✓</div>Le groupe WhatsApp vous donne accès à des experts 7j/7</li>
-        </ul>
-      </div>
-    </div>
-    <div id="qwR2" class="qw-hidden">
-      <div class="qw-rc d3">
-        <div class="qw-greet" id="qwG2"></div>
-        <div class="qw-rlv">Niveau 3 — Avancé</div>
-        <div class="qw-rtitle">Le Pro En Devenir</div>
-        <div class="qw-rdesc">Vous avez un bon niveau mais il vous manque les techniques avancées. WINCLAIR vous propulse au niveau expert et vous positionne comme référence Windows 11 dans votre entourage professionnel.</div>
-        <div class="qw-sb"><div class="qw-sf" id="qwF2"></div></div>
-        <div class="qw-sl">Potentiel de progression : ciblé et efficace</div>
-      </div>
-      <div class="qw-pitch">
-        <h3>Ce que WINCLAIR va changer pour vous</h3>
-        <ul class="qw-bens">
-          <li><div class="qw-ck">✓</div>Les modules avancés : sécurité, réseau, virtualisation</li>
-          <li><div class="qw-ck">✓</div>Maîtriser tous les outils professionnels intégrés à Windows 11</li>
-          <li><div class="qw-ck">✓</div>Devenir la référence IT dans votre entreprise ou réseau</li>
-          <li><div class="qw-ck">✓</div>8 jours pour passer de bon utilisateur à véritable expert</li>
-        </ul>
-      </div>
-    </div>
-    <div class="qw-bonus">🎁 <strong>3 BONUS INCLUS</strong> avec WINCLAIR :<br>Guide PDF de maintenance · Guide raccourcis clavier · Groupe WhatsApp exclusif</div>
-    <button class="qw-cta" onclick="window.open('https://zapgnstb.mychariow.shop/winclair','_blank')">Je veux maîtriser Windows 11 avec WINCLAIR →</button>
-    <div class="qw-pay">💳 Wave · Orange Money · MTN MoMo</div>
-    <button class="qw-rst" onclick="qwRestart()">↺ Refaire le quiz</button>
   </div>
 
 </div>
+
 <script>
-var S=[null,null,null,null,null,null,null];
-var PR={p:'',n:'',e:'',w:''};
-
-function qwStart(){
-  var p=document.getElementById('cfP').value.trim();
-  var n=document.getElementById('cfN').value.trim();
-  var e=document.getElementById('cfE').value.trim();
-  var w=document.getElementById('cfW').value.trim();
-  var ok=true;
-  function chk(val,eid,iid){
-    if(!val){document.getElementById(eid).style.display='block';document.getElementById(iid).classList.add('err');ok=false;}
-    else{document.getElementById(eid).style.display='none';document.getElementById(iid).classList.remove('err');}
+const QS = [
+  {
+    q: "Tu veux ouvrir l'Explorateur de fichiers rapidement sans utiliser la souris. Quel raccourci utilises-tu ?",
+    opts: ["Ctrl + E", "Win + E", "Alt + F4", "Ctrl + F"],
+    ans: 1,
+    fb: {
+      ok: "Exact ! Win + E ouvre l'Explorateur en une fraction de seconde. C'est l'un des raccourcis les plus puissants au quotidien.",
+      ko: "La bonne réponse est Win + E. La touche Windows (logo) + E ouvre directement l'Explorateur de fichiers."
+    }
+  },
+  {
+    q: "Tu veux renommer un fichier sans toucher à la souris. Quelle touche appuies-tu ?",
+    opts: ["Entrée", "F2", "Suppr", "F5"],
+    ans: 1,
+    fb: {
+      ok: "Parfait ! F2 active le mode renommage instantanément. Les recruteurs adorent voir cette fluidité chez un candidat.",
+      ko: "La bonne réponse est F2. Sélectionne le fichier, appuie F2, tape le nouveau nom, puis Entrée."
+    }
+  },
+  {
+    q: "Ton PC devient soudainement très lent. Quelle est la première chose à faire ?",
+    opts: [
+      "Redémarrer le PC immédiatement",
+      "Ouvrir le Gestionnaire des tâches (Ctrl+Shift+Esc) pour identifier le problème",
+      "Appeler un technicien",
+      "Désinstaller des logiciels au hasard"
+    ],
+    ans: 1,
+    fb: {
+      ok: "Très bien ! Le Gestionnaire des tâches donne un diagnostic en temps réel. C'est le réflexe des utilisateurs avancés.",
+      ko: "La bonne réponse : Ctrl+Shift+Esc ouvre le Gestionnaire des tâches qui montre exactement ce qui consomme les ressources."
+    }
+  },
+  {
+    q: "Tu veux travailler sur deux fenêtres côte à côte sans les redimensionner à la main. Que fais-tu ?",
+    opts: [
+      "Tu redimensionnes chaque fenêtre manuellement avec la souris",
+      "Tu utilises Win + ← puis Win + → pour coller chaque fenêtre d'un côté",
+      "C'est impossible sans un deuxième écran",
+      "Tu minimises une fenêtre et gardes l'autre"
+    ],
+    ans: 1,
+    fb: {
+      ok: "Excellent ! Les Snap Layouts de Windows 11 permettent de diviser l'écran en 2 secondes. Très impressionnant en entretien.",
+      ko: "Win + ← colle à gauche, Win + → à droite. Windows 11 propose aussi des layouts automatiques via le bouton maximiser."
+    }
+  },
+  {
+    q: "Tu veux faire une capture d'écran d'une zone précise (pas tout l'écran). Quel raccourci utilises-tu ?",
+    opts: ["Ctrl + C", "Print Screen seul", "Win + Shift + S", "Alt + Impr. écran"],
+    ans: 2,
+    fb: {
+      ok: "Très bien ! Win + Shift + S ouvre l'outil de capture pour sélectionner exactement la zone voulue. Indispensable.",
+      ko: "La bonne réponse est Win + Shift + S. Cela ouvre Snipping Tool pour capturer une zone précise. Print Screen seul capture tout."
+    }
+  },
+  {
+    q: "Tu cherches un fichier créé la semaine dernière mais tu ne sais plus où il est. Quelle est la méthode la plus rapide ?",
+    opts: [
+      "Chercher dossier par dossier dans l'Explorateur",
+      "Utiliser Win + S et taper le nom du fichier",
+      "Regarder dans le bureau",
+      "Regarder dans le dossier Téléchargements"
+    ],
+    ans: 1,
+    fb: {
+      ok: "Parfait ! Win + S ou la barre de recherche en bas — la méthode la plus rapide et la plus professionnelle.",
+      ko: "Win + S ouvre la recherche Windows qui scanne tous tes dossiers en quelques secondes."
+    }
+  },
+  {
+    q: "Tu veux basculer rapidement entre plusieurs fenêtres ouvertes sans toucher à la souris. Quel raccourci utilises-tu ?",
+    opts: ["Ctrl + Tab", "Alt + Tab", "Win + Tab", "Ctrl + Alt + Suppr"],
+    ans: 1,
+    fb: {
+      ok: "Exactement ! Alt + Tab est le raccourci universel pour naviguer entre les fenêtres. Win + Tab ouvre la vue des tâches.",
+      ko: "La bonne réponse est Alt + Tab. Maintiens Alt enfoncé et appuie Tab pour naviguer entre toutes les fenêtres ouvertes."
+    }
+  },
+  {
+    q: "Comment afficher rapidement le Bureau (réduire toutes les fenêtres) en un seul raccourci ?",
+    opts: ["Ctrl + D", "Win + D", "Alt + D", "Win + M"],
+    ans: 1,
+    fb: {
+      ok: "Correct ! Win + D réduit toutes les fenêtres et affiche le Bureau. Un deuxième appui restaure tout.",
+      ko: "La bonne réponse est Win + D. Appuyer une deuxième fois restaure toutes les fenêtres. Win + M les minimise sans restauration possible."
+    }
+  },
+  {
+    q: "Tu veux créer un nouveau dossier dans l'Explorateur sans utiliser le clic droit. Quel raccourci utilises-tu ?",
+    opts: ["Ctrl + N", "Ctrl + Shift + N", "Alt + N", "F7"],
+    ans: 1,
+    fb: {
+      ok: "Très bien ! Ctrl + Shift + N crée un nouveau dossier instantanément. Un réflexe que les utilisateurs confirmés ont automatisé.",
+      ko: "La bonne réponse est Ctrl + Shift + N. C'est l'un des raccourcis les moins connus mais les plus utiles dans l'Explorateur."
+    }
+  },
+  {
+    q: "Quelle est la différence entre 'Couper + Coller' (Ctrl+X puis Ctrl+V) et 'Copier + Coller' (Ctrl+C puis Ctrl+V) un fichier ?",
+    opts: [
+      "Aucune différence, les deux font la même chose",
+      "Couper déplace le fichier, Copier crée un doublon — l'original reste",
+      "Couper supprime définitivement le fichier",
+      "Copier est plus rapide que Couper"
+    ],
+    ans: 1,
+    fb: {
+      ok: "Parfait ! Couper (Ctrl+X) déplace le fichier vers le nouvel emplacement. Copier (Ctrl+C) crée un doublon et l'original reste en place.",
+      ko: "Couper (Ctrl+X + Ctrl+V) déplace le fichier. Copier (Ctrl+C + Ctrl+V) crée une copie — l'original reste à sa place."
+    }
   }
-  chk(p,'eP','cfP'); chk(n,'eN','cfN'); chk(w,'eW','cfW');
-  if(!e||e.indexOf('@')<0){document.getElementById('eE').style.display='block';document.getElementById('cfE').classList.add('err');ok=false;}
-  else{document.getElementById('eE').style.display='none';document.getElementById('cfE').classList.remove('err');}
-  if(!ok)return;
-  PR={p:p,n:n,e:e,w:w};
+];
 
-  // Envoi Formspree
-  var fd=new FormData();
-  fd.append('Prenom',p); fd.append('Nom',n); fd.append('Email',e); fd.append('WhatsApp',w);
-  fd.append('_subject','🎯 Nouveau prospect Quiz WINCLAIR — '+p+' '+n);
-  fetch('https://formspree.io/f/xdaybjkl',{method:'POST',body:fd,headers:{Accept:'application/json'}})
-    .catch(function(){});
+let cur = 0, score = 0, answered = false, user = {};
 
-  document.getElementById('qwCapture').classList.add('qw-hidden');
-  document.getElementById('qwBody').classList.remove('qw-hidden');
+function startQuiz() {
+  const p = document.getElementById('prenom').value.trim();
+  const e = document.getElementById('email').value.trim();
+  if (!p || !e) { alert('Merci de remplir ton prénom et ton email.'); return; }
+  user = { prenom: p, email: e, whatsapp: document.getElementById('whatsapp').value.trim() };
+  show('s-quiz');
+  document.getElementById('progressWrap').style.display = 'block';
+  renderQ();
 }
 
-function qwSel(btn,q){
-  btn.closest('.qw-opts').querySelectorAll('.qw-opt').forEach(function(o){o.classList.remove('sel')});
-  btn.classList.add('sel');
-  S[q]=parseInt(btn.dataset.score);
-  var nb=document.getElementById('qwN'+q);
-  if(nb)nb.classList.add('on');
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
 }
 
-function qwNext(q){
-  if(S[q]===null)return;
-  document.getElementById('qwQ'+q).classList.add('qw-hidden');
-  document.getElementById('qwQ'+(q+1)).classList.remove('qw-hidden');
-  var pct=Math.round(((q+2)/7)*100);
-  document.getElementById('qwPF').style.width=pct+'%';
-  document.getElementById('qwPL').textContent='Question '+(q+2)+' sur 7';
-  document.getElementById('qwPP').textContent=pct+'%';
+function renderQ() {
+  const q = QS[cur];
+  const L = ['A','B','C','D'];
+  document.getElementById('qNum').textContent = `Question ${cur+1} / ${QS.length}`;
+  document.getElementById('scoreLive').textContent = score;
+  document.getElementById('qText').textContent = q.q;
+
+  const wrap = document.getElementById('optWrap');
+  wrap.innerHTML = '';
+  q.opts.forEach((o, i) => {
+    const d = document.createElement('div');
+    d.className = 'option';
+    d.innerHTML = `<div class="opt-letter">${L[i]}</div><div class="opt-text">${o}</div>`;
+    d.onclick = () => pick(i);
+    wrap.appendChild(d);
+  });
+
+  document.getElementById('fbBox').className = 'feedback-box';
+  document.getElementById('fbBox').textContent = '';
+  const nb = document.getElementById('nextBtn');
+  nb.disabled = true;
+  nb.textContent = cur < QS.length - 1 ? 'Continuer →' : 'Voir mes résultats →';
+  answered = false;
+
+  const pct = Math.round(((cur+1)/QS.length)*100);
+  document.getElementById('pLabel').textContent = `Question ${cur+1} sur ${QS.length}`;
+  document.getElementById('pPct').textContent = pct + '%';
+  document.getElementById('pFill').style.width = pct + '%';
 }
 
-function qwPrev(q){
-  document.getElementById('qwQ'+q).classList.add('qw-hidden');
-  document.getElementById('qwQ'+(q-1)).classList.remove('qw-hidden');
-  var pct=Math.round((q/7)*100);
-  document.getElementById('qwPF').style.width=pct+'%';
-  document.getElementById('qwPL').textContent='Question '+q+' sur 7';
-  document.getElementById('qwPP').textContent=pct+'%';
+function pick(i) {
+  if (answered) return;
+  answered = true;
+  const q = QS[cur];
+  const opts = document.querySelectorAll('.option');
+  opts.forEach(o => { o.classList.add('locked'); o.onclick = null; });
+  opts[i].classList.add('selected');
+  const fb = document.getElementById('fbBox');
+  if (i === q.ans) {
+    score++;
+    document.getElementById('scoreLive').textContent = score;
+    opts[i].classList.add('correct');
+    fb.textContent = '✓ ' + q.fb.ok;
+    fb.className = 'feedback-box ok';
+  } else {
+    opts[i].classList.add('wrong');
+    opts[q.ans].classList.add('correct');
+    fb.textContent = '✗ ' + q.fb.ko;
+    fb.className = 'feedback-box ko';
+  }
+  document.getElementById('nextBtn').disabled = false;
 }
 
-function qwRes(){
-  if(S[6]===null)return;
-  document.getElementById('qwBody').classList.add('qw-hidden');
-  document.getElementById('qwResult').classList.remove('qw-hidden');
-  var total=S.reduce(function(a,b){return a+(b||0)},0);
-  var lv=total/18<=0.33?0:total/18<=0.66?1:2;
-  var ws=['20%','55%','85%'];
-  document.getElementById('qwR'+lv).classList.remove('qw-hidden');
-  document.getElementById('qwG'+lv).textContent='Bonjour '+PR.p+' 👋';
-  setTimeout(function(){document.getElementById('qwF'+lv).style.width=ws[lv];},100);
+function nextQ() {
+  cur++;
+  if (cur < QS.length) renderQ();
+  else showResult();
 }
 
-function qwRestart(){
-  S=[null,null,null,null,null,null,null];
-  document.getElementById('qwResult').classList.add('qw-hidden');
-  ['qwR0','qwR1','qwR2'].forEach(function(id){document.getElementById(id).classList.add('qw-hidden')});
-  document.querySelectorAll('.qw-opt').forEach(function(b){b.classList.remove('sel')});
-  document.querySelectorAll('.qw-nx').forEach(function(b){b.classList.remove('on')});
-  for(var i=1;i<7;i++)document.getElementById('qwQ'+i).classList.add('qw-hidden');
-  document.getElementById('qwQ0').classList.remove('qw-hidden');
-  document.getElementById('qwBody').classList.add('qw-hidden');
-  document.getElementById('qwCapture').classList.remove('qw-hidden');
-  document.getElementById('qwPF').style.width='14%';
-  document.getElementById('qwPL').textContent='Question 1 sur 7';
-  document.getElementById('qwPP').textContent='14%';
+function showResult() {
+  show('s-result');
+  document.getElementById('progressWrap').style.display = 'none';
+  const total = QS.length;
+  const pct = Math.round((score/total)*100);
+  const wrong = total - score;
+
+  document.getElementById('scoreDisp').textContent = score+'/'+total;
+  document.getElementById('sCorrect').textContent = score;
+  document.getElementById('sWrong').textContent = wrong;
+  document.getElementById('sPct').textContent = pct+'%';
+
+  // Arc
+  const arc = document.getElementById('scoreArc');
+  const circ = 326.7;
+  setTimeout(() => {
+    arc.style.transition = 'stroke-dashoffset 1.4s cubic-bezier(0.4,0,0.2,1)';
+    arc.style.strokeDashoffset = circ - (pct/100)*circ;
+  }, 300);
+
+  let badge, badgeClass, desc, ctaH, ctaP;
+
+  if (pct <= 30) {
+    badge = "Niveau Débutant";
+    badgeClass = "nb-debutant";
+    desc = `${user.prenom}, tu utilises Windows mais sans vraiment le maîtriser. Tu passes beaucoup de temps sur des tâches simples. Avec une méthode claire, tu peux rapidement changer ça.`;
+    ctaH = "Tu as besoin d'une méthode claire — maintenant.";
+    ctaP = "WINCLAIR part de zéro et te mène au niveau professionnel en 15 modules. Profite de l'offre à 4 500 FCFA avant qu'elle expire.";
+  } else if (pct <= 60) {
+    badge = "Niveau Intermédiaire";
+    badgeClass = "nb-intermediaire";
+    desc = `${user.prenom}, tu as les bases mais il te manque des automatismes. En entretien ou au bureau, ces lacunes se voient. Quelques jours de pratique ciblée peuvent tout changer.`;
+    ctaH = "Tu es proche — il te manque juste les automatismes.";
+    ctaP = "WINCLAIR comblera exactement ces lacunes. 15 modules, 8 jours, depuis ton téléphone. À 4 500 FCFA seulement.";
+  } else if (pct <= 80) {
+    badge = "Niveau Avancé";
+    badgeClass = "nb-avance";
+    desc = `Très bien ${user.prenom} ! Tu maîtrises les fondamentaux. Pour devenir la référence informatique de ton bureau, il reste quelques points à affiner.`;
+    ctaH = "Tu es bon — WINCLAIR te rendra excellent.";
+    ctaP = "Les 15 modules couvrent des fonctionnalités avancées que même les utilisateurs confirmés ne connaissent pas encore.";
+  } else {
+    badge = "Niveau Expert";
+    badgeClass = "nb-expert";
+    desc = `Impressionnant ${user.prenom} ! Tu maîtrises Windows 11 comme un professionnel. Tu peux devenir une référence et même enseigner ces compétences autour de toi.`;
+    ctaH = "Tu es expert — partage cette formation.";
+    ctaP = "WINCLAIR peut transformer tes collègues et proches comme il t'a transformé. Offre-leur l'accès à 4 500 FCFA.";
+  }
+
+  const nb = document.getElementById('niveauBadge');
+  nb.textContent = badge;
+  nb.className = 'niveau-badge ' + badgeClass;
+  document.getElementById('resultDesc').textContent = desc;
+  document.getElementById('ctaH').textContent = ctaH;
+  document.getElementById('ctaP').textContent = ctaP;
+}
+
+function restart() {
+  cur = 0; score = 0; answered = false;
+  show('s-capture');
 }
 </script>
 </body>
