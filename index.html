@@ -16,9 +16,9 @@
     --blanc-dim: #C8D0E8;
     --blanc-pale: #8A96B8;
     --or: #F5C518;
-    --or-pale: #FFF3B0;
     --rouge: #F85149;
     --vert-ok: #3DD68C;
+    --orange: #FB923C;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -37,20 +37,18 @@
     inset: 0;
     background:
       radial-gradient(ellipse 70% 50% at 15% 0%, rgba(27,58,140,0.35) 0%, transparent 60%),
-      radial-gradient(ellipse 50% 40% at 85% 100%, rgba(245,197,24,0.07) 0%, transparent 55%),
-      radial-gradient(ellipse 40% 30% at 50% 50%, rgba(27,58,140,0.1) 0%, transparent 70%);
+      radial-gradient(ellipse 50% 40% at 85% 100%, rgba(245,197,24,0.07) 0%, transparent 55%);
     pointer-events: none;
     z-index: 0;
   }
 
-  /* Grid lines bg */
   body::after {
     content: '';
     position: fixed;
     inset: 0;
     background-image:
-      linear-gradient(rgba(27,58,140,0.06) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(27,58,140,0.06) 1px, transparent 1px);
+      linear-gradient(rgba(27,58,140,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(27,58,140,0.05) 1px, transparent 1px);
     background-size: 40px 40px;
     pointer-events: none;
     z-index: 0;
@@ -67,11 +65,11 @@
   /* ===== HEADER ===== */
   .header {
     text-align: center;
-    padding: 32px 0 28px;
+    padding: 28px 0 24px;
   }
 
   .logo-wrap {
-    margin-bottom: 28px;
+    margin-bottom: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -79,33 +77,29 @@
   }
 
   .logo-img {
-    width: 56px;
-    height: 56px;
+    width: 54px; height: 54px;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid rgba(245,197,24,0.3);
-    box-shadow: 0 0 20px rgba(27,58,140,0.5);
+    border: 2px solid rgba(245,197,24,0.4);
+    box-shadow: 0 0 20px rgba(27,58,140,0.6);
   }
 
-  .logo-info {
-    text-align: left;
-  }
+  .logo-info { text-align: left; }
 
   .logo-name {
     font-family: 'Syne', sans-serif;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 800;
     color: var(--blanc);
     letter-spacing: 1.5px;
     text-transform: uppercase;
-    line-height: 1;
   }
 
   .logo-tagline {
-    font-size: 11px;
+    font-size: 10px;
     color: var(--blanc-pale);
     letter-spacing: 1px;
-    margin-top: 3px;
+    margin-top: 2px;
   }
 
   .promo-strip {
@@ -119,12 +113,12 @@
     padding: 7px 20px;
     border-radius: 20px;
     display: inline-block;
-    margin-bottom: 22px;
-    animation: pulse 2s infinite;
+    margin-bottom: 20px;
+    animation: glow 2s infinite;
   }
 
-  @keyframes pulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(245,197,24,0.4); }
+  @keyframes glow {
+    0%,100% { box-shadow: 0 0 0 0 rgba(245,197,24,0.5); }
     50% { box-shadow: 0 0 0 8px rgba(245,197,24,0); }
   }
 
@@ -133,74 +127,51 @@
     font-size: clamp(1.7rem, 5.5vw, 2.6rem);
     font-weight: 800;
     line-height: 1.1;
-    margin-bottom: 14px;
+    margin-bottom: 12px;
   }
 
   .header h1 span { color: var(--or); }
 
   .header p {
     color: var(--blanc-dim);
-    font-size: 0.95rem;
+    font-size: 0.93rem;
     line-height: 1.65;
     max-width: 460px;
-    margin: 0 auto 20px;
+    margin: 0 auto 18px;
   }
 
-  .header-stats {
+  .hstats {
     display: flex;
     justify-content: center;
-    gap: 24px;
+    gap: 20px;
     flex-wrap: wrap;
   }
 
   .hstat {
     display: flex;
     align-items: center;
-    gap: 7px;
-    font-size: 0.82rem;
+    gap: 6px;
+    font-size: 0.8rem;
     color: var(--blanc-pale);
   }
 
-  .hstat-dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--or);
-  }
+  .hstat-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--or); }
 
   /* ===== PROGRESS ===== */
-  .progress-wrap {
-    margin: 24px 0 20px;
-    display: none;
-  }
+  .progress-wrap { margin: 22px 0 18px; display: none; }
 
   .progress-top {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 8px;
+    margin-bottom: 7px;
   }
 
-  .progress-label {
-    font-size: 0.8rem;
-    color: var(--blanc-pale);
-    font-weight: 500;
-  }
+  .p-label { font-size: 0.78rem; color: var(--blanc-pale); }
+  .p-pct { font-family: 'Syne', sans-serif; font-size: 0.78rem; color: var(--or); font-weight: 700; }
 
-  .progress-pct {
-    font-family: 'Syne', sans-serif;
-    font-size: 0.8rem;
-    color: var(--or);
-    font-weight: 700;
-  }
+  .p-bar { height: 5px; background: var(--bleu-moyen); border-radius: 3px; overflow: hidden; }
 
-  .progress-bar {
-    height: 5px;
-    background: var(--bleu-moyen);
-    border-radius: 3px;
-    overflow: hidden;
-  }
-
-  .progress-fill {
+  .p-fill {
     height: 100%;
     background: linear-gradient(90deg, var(--bleu-clair), var(--or));
     border-radius: 3px;
@@ -209,70 +180,103 @@
 
   /* ===== SCREENS ===== */
   .screen { display: none; }
-
-  .screen.active {
-    display: block;
-    animation: slideUp 0.45s cubic-bezier(0.4,0,0.2,1);
-  }
+  .screen.active { display: block; animation: slideUp 0.4s cubic-bezier(0.4,0,0.2,1); }
 
   @keyframes slideUp {
-    from { opacity: 0; transform: translateY(20px); }
+    from { opacity: 0; transform: translateY(18px); }
     to { opacity: 1; transform: translateY(0); }
   }
 
-  /* ===== CARDS ===== */
+  /* ===== CARD ===== */
   .card {
     background: var(--bleu-fonce);
     border: 1px solid var(--bleu-bord);
     border-radius: 20px;
     padding: 32px 28px;
-    box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.5);
   }
 
-  /* ===== CAPTURE ===== */
-  .capture-icon {
-    width: 52px; height: 52px;
+  /* ===== FORMULAIRE ===== */
+  .form-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--bleu-bord);
+  }
+
+  .form-icon {
+    width: 46px; height: 46px;
     background: linear-gradient(135deg, var(--bleu-clair), #0F2461);
-    border-radius: 14px;
+    border-radius: 12px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 1.5rem;
-    margin-bottom: 18px;
+    font-size: 1.3rem;
+    flex-shrink: 0;
     border: 1px solid var(--bleu-bord);
   }
 
-  .card h2 {
+  .form-header-text h2 {
     font-family: 'Syne', sans-serif;
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     font-weight: 800;
-    margin-bottom: 8px;
     color: var(--blanc);
+    margin-bottom: 3px;
   }
 
-  .card > p {
+  .form-header-text p {
+    font-size: 0.82rem;
     color: var(--blanc-pale);
-    font-size: 0.9rem;
-    margin-bottom: 26px;
-    line-height: 1.6;
+    line-height: 1.4;
   }
 
-  .form-group { margin-bottom: 15px; }
+  /* Avertissement */
+  .warning-box {
+    background: rgba(251,146,60,0.08);
+    border: 1px solid rgba(251,146,60,0.25);
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 22px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .warning-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+
+  .warning-text {
+    font-size: 0.82rem;
+    color: #FED7AA;
+    line-height: 1.5;
+  }
+
+  .warning-text strong { color: var(--orange); }
+
+  /* Champs */
+  .form-group { margin-bottom: 16px; }
 
   .form-group label {
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 6px;
     font-size: 0.8rem;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--blanc-dim);
     margin-bottom: 7px;
     letter-spacing: 0.5px;
     text-transform: uppercase;
   }
 
-  .form-group input {
+  .required-star { color: var(--rouge); font-size: 1rem; }
+
+  .input-wrap { position: relative; }
+
+  .input-wrap input {
     width: 100%;
     background: var(--bleu-moyen);
     border: 1.5px solid var(--bleu-bord);
     border-radius: 10px;
-    padding: 12px 16px;
+    padding: 13px 44px 13px 16px;
     font-size: 0.93rem;
     color: var(--blanc);
     font-family: 'DM Sans', sans-serif;
@@ -280,33 +284,124 @@
     outline: none;
   }
 
-  .form-group input:focus {
+  .input-wrap input:focus {
     border-color: var(--or);
     background: rgba(245,197,24,0.04);
     box-shadow: 0 0 0 3px rgba(245,197,24,0.1);
   }
 
-  .form-group input::placeholder { color: #3A4A6A; }
+  .input-wrap input.valid { border-color: var(--vert-ok); }
+  .input-wrap input.invalid { border-color: var(--rouge); }
+
+  .input-wrap input::placeholder { color: #3A4A6A; }
+
+  .input-icon {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    pointer-events: none;
+  }
+
+  .field-error {
+    font-size: 0.78rem;
+    color: var(--rouge);
+    margin-top: 5px;
+    display: none;
+    padding-left: 4px;
+  }
+
+  .field-error.show { display: block; animation: fadeIn 0.2s ease; }
+
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  .field-hint {
+    font-size: 0.75rem;
+    color: var(--blanc-pale);
+    margin-top: 5px;
+    padding-left: 4px;
+  }
+
+  /* Checkbox RGPD */
+  .rgpd-wrap {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin: 18px 0 6px;
+    padding: 14px;
+    background: var(--bleu-moyen);
+    border: 1px solid var(--bleu-bord);
+    border-radius: 10px;
+  }
+
+  .rgpd-wrap input[type="checkbox"] {
+    width: 18px; height: 18px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    accent-color: var(--or);
+    cursor: pointer;
+  }
+
+  .rgpd-label {
+    font-size: 0.8rem;
+    color: var(--blanc-pale);
+    line-height: 1.5;
+    cursor: pointer;
+  }
+
+  .rgpd-label strong { color: var(--blanc-dim); }
+
+  /* Sending overlay */
+  .sending-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(10,14,26,0.85);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .sending-overlay.show { display: flex; }
+
+  .spinner {
+    width: 48px; height: 48px;
+    border: 4px solid var(--bleu-bord);
+    border-top-color: var(--or);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .sending-text {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    color: var(--blanc-dim);
+  }
 
   /* ===== QUIZ ===== */
   .q-meta {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
   }
 
   .q-num {
     font-family: 'Syne', sans-serif;
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     font-weight: 700;
     color: var(--or);
     letter-spacing: 2px;
     text-transform: uppercase;
   }
 
-  .q-score-live {
-    font-size: 0.78rem;
+  .score-live {
+    font-size: 0.75rem;
     color: var(--blanc-pale);
     background: var(--bleu-moyen);
     padding: 4px 12px;
@@ -314,34 +409,29 @@
     border: 1px solid var(--bleu-bord);
   }
 
-  .q-score-live span { color: var(--vert-ok); font-weight: 700; }
+  .score-live span { color: var(--vert-ok); font-weight: 700; }
 
-  .question-text {
+  .q-text {
     font-family: 'Syne', sans-serif;
-    font-size: clamp(1rem, 3vw, 1.18rem);
+    font-size: clamp(1rem, 3vw, 1.17rem);
     font-weight: 700;
     line-height: 1.45;
-    margin-bottom: 24px;
+    margin-bottom: 22px;
     color: var(--blanc);
   }
 
-  .options {
-    display: flex;
-    flex-direction: column;
-    gap: 9px;
-  }
+  .options { display: flex; flex-direction: column; gap: 9px; }
 
   .option {
     background: var(--bleu-moyen);
     border: 1.5px solid var(--bleu-bord);
     border-radius: 12px;
-    padding: 13px 16px;
+    padding: 13px 15px;
     cursor: pointer;
     transition: all 0.2s;
     display: flex;
     align-items: center;
     gap: 12px;
-    text-align: left;
   }
 
   .option:hover:not(.locked) {
@@ -355,210 +445,131 @@
   .option.wrong { border-color: var(--rouge); background: rgba(248,81,73,0.1); }
   .option.locked { cursor: not-allowed; }
 
-  .opt-letter {
+  .opt-l {
     width: 30px; height: 30px;
     border-radius: 8px;
     background: var(--bleu-bord);
     display: flex; align-items: center; justify-content: center;
     font-family: 'Syne', sans-serif;
-    font-size: 0.78rem;
+    font-size: 0.76rem;
     font-weight: 800;
     flex-shrink: 0;
     transition: all 0.2s;
-    color: var(--blanc-dim);
+    color: var(--blanc-pale);
   }
 
-  .option.selected .opt-letter { background: var(--or); color: var(--bleu-nuit); }
-  .option.correct .opt-letter { background: var(--vert-ok); color: var(--bleu-nuit); }
-  .option.wrong .opt-letter { background: var(--rouge); color: white; }
+  .option.selected .opt-l { background: var(--or); color: var(--bleu-nuit); }
+  .option.correct .opt-l { background: var(--vert-ok); color: var(--bleu-nuit); }
+  .option.wrong .opt-l { background: var(--rouge); color: white; }
 
-  .opt-text {
-    font-size: 0.9rem;
+  .opt-t {
+    font-size: 0.88rem;
     line-height: 1.4;
     color: var(--blanc-dim);
   }
 
-  .option.correct .opt-text { color: var(--vert-ok); }
-  .option.wrong .opt-text { color: var(--rouge); }
+  .option.correct .opt-t { color: var(--vert-ok); }
+  .option.wrong .opt-t { color: #FCA5A5; }
 
-  .feedback-box {
+  .fb-box {
     margin-top: 14px;
-    padding: 13px 16px;
+    padding: 12px 15px;
     border-radius: 10px;
-    font-size: 0.86rem;
-    line-height: 1.65;
+    font-size: 0.85rem;
+    line-height: 1.6;
     display: none;
   }
 
-  .feedback-box.ok {
-    background: rgba(61,214,140,0.08);
-    border: 1px solid rgba(61,214,140,0.25);
-    color: #86EFAC;
-    display: block;
-  }
+  .fb-box.ok { background: rgba(61,214,140,0.08); border: 1px solid rgba(61,214,140,0.25); color: #86EFAC; display: block; }
+  .fb-box.ko { background: rgba(248,81,73,0.08); border: 1px solid rgba(248,81,73,0.25); color: #FCA5A5; display: block; }
 
-  .feedback-box.ko {
-    background: rgba(248,81,73,0.08);
-    border: 1px solid rgba(248,81,73,0.25);
-    color: #FCA5A5;
-    display: block;
-  }
-
-  /* ===== BUTTONS ===== */
+  /* ===== BOUTONS ===== */
   .btn {
     display: block;
     width: 100%;
     font-family: 'Syne', sans-serif;
-    font-size: 0.95rem;
+    font-size: 0.93rem;
     font-weight: 700;
     padding: 14px 24px;
     border-radius: 50px;
     border: none;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.22s;
     text-align: center;
     text-decoration: none;
     margin-top: 16px;
   }
 
-  .btn-or {
-    background: linear-gradient(135deg, var(--or), #E8A800);
-    color: var(--bleu-nuit);
-  }
+  .btn-or { background: linear-gradient(135deg, var(--or), #E8A800); color: var(--bleu-nuit); }
+  .btn-or:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(245,197,24,0.35); }
 
-  .btn-or:hover:not(:disabled) {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 28px rgba(245,197,24,0.35);
-  }
+  .btn-blue { background: linear-gradient(135deg, #1B3A8C, #0F2461); color: var(--blanc); border: 1px solid var(--bleu-bord); }
+  .btn-blue:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(27,58,140,0.4); border-color: var(--or); }
 
-  .btn-blue {
-    background: linear-gradient(135deg, #1B3A8C, #0F2461);
-    color: var(--blanc);
-    border: 1px solid var(--bleu-bord);
-  }
+  .btn-ghost { background: transparent; color: var(--blanc-pale); border: 1px solid var(--bleu-bord); font-size: 0.82rem; }
 
-  .btn-blue:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(27,58,140,0.4);
-    border-color: var(--or);
-  }
-
-  .btn-ghost {
-    background: transparent;
-    color: var(--blanc-pale);
-    border: 1px solid var(--bleu-bord);
-    font-size: 0.85rem;
-  }
-
-  .btn:disabled {
-    opacity: 0.35;
-    cursor: not-allowed;
-    transform: none !important;
-    box-shadow: none !important;
-  }
+  .btn:disabled { opacity: 0.3; cursor: not-allowed; transform: none !important; box-shadow: none !important; }
 
   /* ===== RÉSULTATS ===== */
   .result-top {
     text-align: center;
-    padding-bottom: 28px;
+    padding-bottom: 26px;
     border-bottom: 1px solid var(--bleu-bord);
-    margin-bottom: 28px;
+    margin-bottom: 24px;
   }
 
   .score-ring {
     width: 120px; height: 120px;
     position: relative;
-    margin: 0 auto 20px;
+    margin: 0 auto 18px;
   }
 
-  .score-ring svg {
-    position: absolute;
-    inset: 0;
-    transform: rotate(-90deg);
-  }
+  .score-ring svg { position: absolute; inset: 0; transform: rotate(-90deg); }
 
   .score-inner {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
   }
 
-  .score-big {
-    font-family: 'Syne', sans-serif;
-    font-size: 2rem;
-    font-weight: 800;
-    line-height: 1;
-    color: var(--blanc);
-  }
-
-  .score-sub {
-    font-size: 0.7rem;
-    color: var(--blanc-pale);
-    margin-top: 2px;
-  }
+  .score-big { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; line-height: 1; }
+  .score-sub { font-size: 0.68rem; color: var(--blanc-pale); margin-top: 2px; }
 
   .niveau-badge {
     display: inline-block;
     font-family: 'Syne', sans-serif;
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     font-weight: 800;
     padding: 6px 20px;
     border-radius: 20px;
     margin-bottom: 12px;
   }
 
-  .nb-debutant { background: rgba(248,81,73,0.15); color: #FCA5A5; border: 1px solid rgba(248,81,73,0.3); }
-  .nb-intermediaire { background: rgba(245,197,24,0.12); color: var(--or); border: 1px solid rgba(245,197,24,0.3); }
-  .nb-avance { background: rgba(61,214,140,0.12); color: var(--vert-ok); border: 1px solid rgba(61,214,140,0.3); }
-  .nb-expert { background: rgba(88,166,255,0.12); color: #93C5FD; border: 1px solid rgba(88,166,255,0.3); }
+  .nb-d { background: rgba(248,81,73,0.15); color: #FCA5A5; border: 1px solid rgba(248,81,73,0.3); }
+  .nb-i { background: rgba(245,197,24,0.12); color: var(--or); border: 1px solid rgba(245,197,24,0.3); }
+  .nb-a { background: rgba(61,214,140,0.12); color: var(--vert-ok); border: 1px solid rgba(61,214,140,0.3); }
+  .nb-e { background: rgba(88,166,255,0.12); color: #93C5FD; border: 1px solid rgba(88,166,255,0.3); }
 
-  .result-desc {
-    color: var(--blanc-dim);
-    font-size: 0.92rem;
-    line-height: 1.65;
-    max-width: 460px;
-    margin: 0 auto;
-  }
+  .result-desc { color: var(--blanc-dim); font-size: 0.9rem; line-height: 1.65; max-width: 460px; margin: 0 auto; }
 
-  .stats-row {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin-bottom: 24px;
-  }
+  .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 22px; }
 
   .sbox {
     background: var(--bleu-moyen);
     border: 1px solid var(--bleu-bord);
     border-radius: 14px;
-    padding: 16px 10px;
+    padding: 15px 10px;
     text-align: center;
   }
 
-  .sbox-num {
-    font-family: 'Syne', sans-serif;
-    font-size: 1.7rem;
-    font-weight: 800;
-    display: block;
-    line-height: 1;
-    margin-bottom: 5px;
-  }
+  .sbox-n { font-family: 'Syne', sans-serif; font-size: 1.65rem; font-weight: 800; display: block; line-height: 1; margin-bottom: 5px; }
+  .sbox-l { font-size: 0.7rem; color: var(--blanc-pale); line-height: 1.3; }
 
-  .sbox-lbl {
-    font-size: 0.72rem;
-    color: var(--blanc-pale);
-    line-height: 1.3;
-  }
-
-  /* PROMO CTA */
   .promo-cta {
-    background: linear-gradient(135deg, rgba(27,58,140,0.4), rgba(10,14,26,0.6));
-    border: 1px solid rgba(245,197,24,0.25);
+    background: linear-gradient(135deg, rgba(27,58,140,0.4), rgba(10,14,26,0.7));
+    border: 1px solid rgba(245,197,24,0.3);
     border-radius: 18px;
-    padding: 28px 24px;
+    padding: 26px 22px;
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -567,13 +578,13 @@
   .promo-cta::before {
     content: '';
     position: absolute;
-    top: -30px; left: -30px;
-    width: 120px; height: 120px;
-    background: radial-gradient(circle, rgba(245,197,24,0.1), transparent 70%);
+    top: -40px; left: -40px;
+    width: 130px; height: 130px;
+    background: radial-gradient(circle, rgba(245,197,24,0.08), transparent 70%);
     pointer-events: none;
   }
 
-  .promo-label {
+  .p-label {
     display: inline-block;
     background: var(--or);
     color: var(--bleu-nuit);
@@ -584,83 +595,43 @@
     text-transform: uppercase;
     padding: 4px 14px;
     border-radius: 20px;
-    margin-bottom: 14px;
+    margin-bottom: 12px;
   }
 
-  .promo-cta h3 {
-    font-family: 'Syne', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 800;
-    margin-bottom: 8px;
-    color: var(--blanc);
-  }
-
-  .promo-cta p {
-    color: var(--blanc-pale);
-    font-size: 0.86rem;
-    margin-bottom: 18px;
-    line-height: 1.6;
-  }
+  .promo-cta h3 { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 800; margin-bottom: 8px; }
+  .promo-cta p { color: var(--blanc-pale); font-size: 0.84rem; margin-bottom: 16px; line-height: 1.6; }
 
   .prix-wrap {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 14px;
-    margin-bottom: 18px;
+    gap: 12px;
+    margin-bottom: 16px;
     flex-wrap: wrap;
   }
 
-  .prix-barre {
-    font-size: 1rem;
-    color: var(--blanc-pale);
-    text-decoration: line-through;
-    opacity: 0.6;
-  }
+  .prix-barre { font-size: 0.95rem; color: var(--blanc-pale); text-decoration: line-through; opacity: 0.6; }
+  .prix-promo { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; color: var(--or); }
+  .prix-eco { background: rgba(61,214,140,0.15); color: var(--vert-ok); font-size: 0.75rem; font-weight: 700; padding: 3px 9px; border-radius: 6px; border: 1px solid rgba(61,214,140,0.25); }
 
-  .prix-promo {
-    font-family: 'Syne', sans-serif;
-    font-size: 2rem;
-    font-weight: 800;
-    color: var(--or);
-  }
-
-  .prix-eco {
-    background: rgba(61,214,140,0.15);
-    color: var(--vert-ok);
-    font-size: 0.78rem;
-    font-weight: 700;
-    padding: 4px 10px;
-    border-radius: 8px;
-    border: 1px solid rgba(61,214,140,0.25);
-  }
-
-  .pay-badges {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-top: 12px;
-  }
-
-  .pay-b {
-    background: var(--bleu-moyen);
-    border: 1px solid var(--bleu-bord);
-    color: var(--blanc-pale);
-    font-size: 0.75rem;
-    font-weight: 600;
-    padding: 5px 12px;
-    border-radius: 6px;
-  }
+  .pay-badges { display: flex; justify-content: center; gap: 7px; flex-wrap: wrap; margin-top: 10px; }
+  .pay-b { background: var(--bleu-moyen); border: 1px solid var(--bleu-bord); color: var(--blanc-pale); font-size: 0.73rem; font-weight: 600; padding: 4px 11px; border-radius: 6px; }
 
   @media (max-width: 480px) {
-    .card { padding: 24px 18px; }
-    .stats-row { gap: 8px; }
-    .sbox-num { font-size: 1.4rem; }
+    .card { padding: 22px 16px; }
+    .stats-row { gap: 7px; }
+    .sbox-n { font-size: 1.4rem; }
   }
 </style>
 </head>
 <body>
+
+<!-- OVERLAY ENVOI -->
+<div class="sending-overlay" id="sendingOverlay">
+  <div class="spinner"></div>
+  <div class="sending-text">Enregistrement de tes informations...</div>
+</div>
+
 <div class="container">
 
   <!-- HEADER -->
@@ -675,7 +646,7 @@
     <div class="promo-strip">🔥 Offre limitée — 70% de réduction</div>
     <h1>Quel est ton vrai<br>niveau sur <span>Windows 11</span> ?</h1>
     <p>Test de 10 questions pour savoir exactement où tu en es — et ce que tu dois travailler avant ton prochain entretien.</p>
-    <div class="header-stats">
+    <div class="hstats">
       <div class="hstat"><div class="hstat-dot"></div>10 questions</div>
       <div class="hstat"><div class="hstat-dot"></div>Résultat immédiat</div>
       <div class="hstat"><div class="hstat-dot"></div>100% gratuit</div>
@@ -683,35 +654,100 @@
   </div>
 
   <!-- PROGRESS -->
-  <div class="progress-wrap" id="progressWrap">
+  <div class="progress-wrap" id="pWrap">
     <div class="progress-top">
-      <span class="progress-label" id="pLabel">Question 1 sur 10</span>
-      <span class="progress-pct" id="pPct">10%</span>
+      <span class="p-label" id="pLabel">Question 1 sur 10</span>
+      <span class="p-pct" id="pPct">10%</span>
     </div>
-    <div class="progress-bar">
-      <div class="progress-fill" id="pFill" style="width:10%"></div>
-    </div>
+    <div class="p-bar"><div class="p-fill" id="pFill" style="width:10%"></div></div>
   </div>
 
   <!-- SCREEN 1 : CAPTURE -->
   <div class="screen active" id="s-capture">
     <div class="card">
-      <div class="capture-icon">📋</div>
-      <h2>Avant de commencer</h2>
-      <p>Remplis ces informations pour recevoir ton résultat personnalisé et un plan d'action adapté à ton niveau.</p>
-      <div class="form-group">
-        <label>Prénom *</label>
-        <input type="text" id="prenom" placeholder="Ton prénom">
+      <div class="form-header">
+        <div class="form-icon">🔐</div>
+        <div class="form-header-text">
+          <h2>Accès au test</h2>
+          <p>Remplis tes vraies informations pour accéder au quiz et recevoir ton résultat personnalisé.</p>
+        </div>
       </div>
-      <div class="form-group">
-        <label>Email *</label>
-        <input type="email" id="email" placeholder="ton@email.com">
+
+      <div class="warning-box">
+        <span class="warning-icon">⚠️</span>
+        <div class="warning-text">
+          <strong>Informations obligatoires et vérifiées.</strong> Un email invalide ou un faux numéro WhatsApp bloquera ton accès au quiz. Tes données ne seront jamais partagées ni revendues.
+        </div>
       </div>
+
+      <!-- PRÉNOM -->
       <div class="form-group">
-        <label>WhatsApp (avec indicatif)</label>
-        <input type="tel" id="whatsapp" placeholder="+225 07 00 00 00 00">
+        <label>Prénom <span class="required-star">*</span></label>
+        <div class="input-wrap">
+          <input type="text" id="f-prenom" placeholder="Ton prénom" autocomplete="given-name"
+            oninput="validatePrenom()" onblur="validatePrenom(true)">
+          <span class="input-icon" id="icon-prenom"></span>
+        </div>
+        <div class="field-error" id="err-prenom">Merci d'entrer ton prénom (minimum 2 caractères).</div>
       </div>
-      <button class="btn btn-or" onclick="startQuiz()">Démarrer le test →</button>
+
+      <!-- NOM -->
+      <div class="form-group">
+        <label>Nom <span class="required-star">*</span></label>
+        <div class="input-wrap">
+          <input type="text" id="f-nom" placeholder="Ton nom de famille" autocomplete="family-name"
+            oninput="validateNom()" onblur="validateNom(true)">
+          <span class="input-icon" id="icon-nom"></span>
+        </div>
+        <div class="field-error" id="err-nom">Merci d'entrer ton nom (minimum 2 caractères).</div>
+      </div>
+
+      <!-- EMAIL -->
+      <div class="form-group">
+        <label>Adresse email <span class="required-star">*</span></label>
+        <div class="input-wrap">
+          <input type="email" id="f-email" placeholder="ton@email.com" autocomplete="email"
+            oninput="validateEmail()" onblur="validateEmail(true)">
+          <span class="input-icon" id="icon-email"></span>
+        </div>
+        <div class="field-error" id="err-email">Adresse email invalide. Exemple valide : nom@gmail.com</div>
+        <div class="field-hint">Doit contenir @ et un domaine valide (.com, .fr, .net...)</div>
+      </div>
+
+      <!-- WHATSAPP -->
+      <div class="form-group">
+        <label>Numéro WhatsApp <span class="required-star">*</span></label>
+        <div class="input-wrap">
+          <input type="tel" id="f-whatsapp" placeholder="+225 07 00 00 00 00" autocomplete="tel"
+            oninput="validateWhatsapp()" onblur="validateWhatsapp(true)">
+          <span class="input-icon" id="icon-wa"></span>
+        </div>
+        <div class="field-error" id="err-wa">Numéro invalide. Format requis : +indicatif suivi de 8 à 12 chiffres. Ex: +22507123456</div>
+        <div class="field-hint">Obligatoire avec l'indicatif pays. Ex : +225 pour Côte d'Ivoire, +221 pour Sénégal</div>
+      </div>
+
+      <!-- VILLE -->
+      <div class="form-group">
+        <label>Ville <span class="required-star">*</span></label>
+        <div class="input-wrap">
+          <input type="text" id="f-ville" placeholder="Abidjan, Dakar, Douala..." autocomplete="address-level2"
+            oninput="validateVille()" onblur="validateVille(true)">
+          <span class="input-icon" id="icon-ville"></span>
+        </div>
+        <div class="field-error" id="err-ville">Merci d'indiquer ta ville.</div>
+      </div>
+
+      <!-- RGPD -->
+      <div class="rgpd-wrap">
+        <input type="checkbox" id="rgpd" onchange="checkForm()">
+        <label class="rgpd-label" for="rgpd">
+          J'accepte que <strong>Dream Technology</strong> utilise mes informations pour m'envoyer mon résultat de test et des informations sur la formation WINCLAIR. Mes données ne seront pas partagées avec des tiers.
+        </label>
+      </div>
+
+      <button class="btn btn-or" id="startBtn" onclick="submitForm()" disabled>
+        Accéder au test →
+      </button>
     </div>
   </div>
 
@@ -720,11 +756,11 @@
     <div class="card">
       <div class="q-meta">
         <div class="q-num" id="qNum">Question 1 / 10</div>
-        <div class="q-score-live">Score : <span id="scoreLive">0</span>/10</div>
+        <div class="score-live">Score : <span id="scoreLive">0</span>/10</div>
       </div>
-      <div class="question-text" id="qText"></div>
+      <div class="q-text" id="qText"></div>
       <div class="options" id="optWrap"></div>
-      <div class="feedback-box" id="fbBox"></div>
+      <div class="fb-box" id="fbBox"></div>
       <button class="btn btn-blue" id="nextBtn" onclick="nextQ()" disabled>Continuer →</button>
     </div>
   </div>
@@ -735,13 +771,10 @@
 
       <div class="result-top">
         <div class="score-ring">
-          <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg viewBox="0 0 120 120" fill="none">
             <circle cx="60" cy="60" r="52" stroke="#1E2D5A" stroke-width="8"/>
             <circle cx="60" cy="60" r="52" stroke="url(#rg)" stroke-width="8"
-              stroke-linecap="round"
-              stroke-dasharray="326.7"
-              stroke-dashoffset="326.7"
-              id="scoreArc"/>
+              stroke-linecap="round" stroke-dasharray="326.7" stroke-dashoffset="326.7" id="scoreArc"/>
             <defs>
               <linearGradient id="rg" x1="0%" y1="0%" x2="100%" y2="0%">
                 <stop offset="0%" stop-color="#1B3A8C"/>
@@ -759,22 +792,13 @@
       </div>
 
       <div class="stats-row">
-        <div class="sbox">
-          <span class="sbox-num" id="sCorrect" style="color:var(--vert-ok)">0</span>
-          <span class="sbox-lbl">Bonnes réponses</span>
-        </div>
-        <div class="sbox">
-          <span class="sbox-num" id="sWrong" style="color:var(--rouge)">0</span>
-          <span class="sbox-lbl">À retravailler</span>
-        </div>
-        <div class="sbox">
-          <span class="sbox-num" id="sPct" style="color:var(--or)">0%</span>
-          <span class="sbox-lbl">Maîtrise</span>
-        </div>
+        <div class="sbox"><span class="sbox-n" id="sC" style="color:var(--vert-ok)">0</span><span class="sbox-l">Bonnes réponses</span></div>
+        <div class="sbox"><span class="sbox-n" id="sW" style="color:var(--rouge)">0</span><span class="sbox-l">À retravailler</span></div>
+        <div class="sbox"><span class="sbox-n" id="sP" style="color:var(--or)">0%</span><span class="sbox-l">Maîtrise</span></div>
       </div>
 
       <div class="promo-cta">
-        <div class="promo-label">Offre de lancement limitée</div>
+        <div class="p-label">Offre de lancement limitée</div>
         <h3 id="ctaH">Passe au niveau supérieur avec WINCLAIR</h3>
         <p id="ctaP">15 modules vidéo pour maîtriser Windows 11 en 8 jours — depuis ton téléphone.</p>
         <div class="prix-wrap">
@@ -796,134 +820,159 @@
     </div>
   </div>
 
-</div>
+</div><!-- /container -->
 
 <script>
+// ============================================================
+// 🔧 CONFIGURATION — REMPLACE PAR TON URL GOOGLE APPS SCRIPT
+// ============================================================
+const SHEET_URL = "COLLE_ICI_TON_URL_GOOGLE_APPS_SCRIPT";
+// ============================================================
+
+// ===== QUESTIONS =====
 const QS = [
-  {
-    q: "Tu veux ouvrir l'Explorateur de fichiers rapidement sans utiliser la souris. Quel raccourci utilises-tu ?",
-    opts: ["Ctrl + E", "Win + E", "Alt + F4", "Ctrl + F"],
-    ans: 1,
-    fb: {
-      ok: "Exact ! Win + E ouvre l'Explorateur en une fraction de seconde. C'est l'un des raccourcis les plus puissants au quotidien.",
-      ko: "La bonne réponse est Win + E. La touche Windows (logo) + E ouvre directement l'Explorateur de fichiers."
-    }
-  },
-  {
-    q: "Tu veux renommer un fichier sans toucher à la souris. Quelle touche appuies-tu ?",
-    opts: ["Entrée", "F2", "Suppr", "F5"],
-    ans: 1,
-    fb: {
-      ok: "Parfait ! F2 active le mode renommage instantanément. Les recruteurs adorent voir cette fluidité chez un candidat.",
-      ko: "La bonne réponse est F2. Sélectionne le fichier, appuie F2, tape le nouveau nom, puis Entrée."
-    }
-  },
-  {
-    q: "Ton PC devient soudainement très lent. Quelle est la première chose à faire ?",
-    opts: [
-      "Redémarrer le PC immédiatement",
-      "Ouvrir le Gestionnaire des tâches (Ctrl+Shift+Esc) pour identifier le problème",
-      "Appeler un technicien",
-      "Désinstaller des logiciels au hasard"
-    ],
-    ans: 1,
-    fb: {
-      ok: "Très bien ! Le Gestionnaire des tâches donne un diagnostic en temps réel. C'est le réflexe des utilisateurs avancés.",
-      ko: "La bonne réponse : Ctrl+Shift+Esc ouvre le Gestionnaire des tâches qui montre exactement ce qui consomme les ressources."
-    }
-  },
-  {
-    q: "Tu veux travailler sur deux fenêtres côte à côte sans les redimensionner à la main. Que fais-tu ?",
-    opts: [
-      "Tu redimensionnes chaque fenêtre manuellement avec la souris",
-      "Tu utilises Win + ← puis Win + → pour coller chaque fenêtre d'un côté",
-      "C'est impossible sans un deuxième écran",
-      "Tu minimises une fenêtre et gardes l'autre"
-    ],
-    ans: 1,
-    fb: {
-      ok: "Excellent ! Les Snap Layouts de Windows 11 permettent de diviser l'écran en 2 secondes. Très impressionnant en entretien.",
-      ko: "Win + ← colle à gauche, Win + → à droite. Windows 11 propose aussi des layouts automatiques via le bouton maximiser."
-    }
-  },
-  {
-    q: "Tu veux faire une capture d'écran d'une zone précise (pas tout l'écran). Quel raccourci utilises-tu ?",
-    opts: ["Ctrl + C", "Print Screen seul", "Win + Shift + S", "Alt + Impr. écran"],
-    ans: 2,
-    fb: {
-      ok: "Très bien ! Win + Shift + S ouvre l'outil de capture pour sélectionner exactement la zone voulue. Indispensable.",
-      ko: "La bonne réponse est Win + Shift + S. Cela ouvre Snipping Tool pour capturer une zone précise. Print Screen seul capture tout."
-    }
-  },
-  {
-    q: "Tu cherches un fichier créé la semaine dernière mais tu ne sais plus où il est. Quelle est la méthode la plus rapide ?",
-    opts: [
-      "Chercher dossier par dossier dans l'Explorateur",
-      "Utiliser Win + S et taper le nom du fichier",
-      "Regarder dans le bureau",
-      "Regarder dans le dossier Téléchargements"
-    ],
-    ans: 1,
-    fb: {
-      ok: "Parfait ! Win + S ou la barre de recherche en bas — la méthode la plus rapide et la plus professionnelle.",
-      ko: "Win + S ouvre la recherche Windows qui scanne tous tes dossiers en quelques secondes."
-    }
-  },
-  {
-    q: "Tu veux basculer rapidement entre plusieurs fenêtres ouvertes sans toucher à la souris. Quel raccourci utilises-tu ?",
-    opts: ["Ctrl + Tab", "Alt + Tab", "Win + Tab", "Ctrl + Alt + Suppr"],
-    ans: 1,
-    fb: {
-      ok: "Exactement ! Alt + Tab est le raccourci universel pour naviguer entre les fenêtres. Win + Tab ouvre la vue des tâches.",
-      ko: "La bonne réponse est Alt + Tab. Maintiens Alt enfoncé et appuie Tab pour naviguer entre toutes les fenêtres ouvertes."
-    }
-  },
-  {
-    q: "Comment afficher rapidement le Bureau (réduire toutes les fenêtres) en un seul raccourci ?",
-    opts: ["Ctrl + D", "Win + D", "Alt + D", "Win + M"],
-    ans: 1,
-    fb: {
-      ok: "Correct ! Win + D réduit toutes les fenêtres et affiche le Bureau. Un deuxième appui restaure tout.",
-      ko: "La bonne réponse est Win + D. Appuyer une deuxième fois restaure toutes les fenêtres. Win + M les minimise sans restauration possible."
-    }
-  },
-  {
-    q: "Tu veux créer un nouveau dossier dans l'Explorateur sans utiliser le clic droit. Quel raccourci utilises-tu ?",
-    opts: ["Ctrl + N", "Ctrl + Shift + N", "Alt + N", "F7"],
-    ans: 1,
-    fb: {
-      ok: "Très bien ! Ctrl + Shift + N crée un nouveau dossier instantanément. Un réflexe que les utilisateurs confirmés ont automatisé.",
-      ko: "La bonne réponse est Ctrl + Shift + N. C'est l'un des raccourcis les moins connus mais les plus utiles dans l'Explorateur."
-    }
-  },
-  {
-    q: "Quelle est la différence entre 'Couper + Coller' (Ctrl+X puis Ctrl+V) et 'Copier + Coller' (Ctrl+C puis Ctrl+V) un fichier ?",
-    opts: [
-      "Aucune différence, les deux font la même chose",
-      "Couper déplace le fichier, Copier crée un doublon — l'original reste",
-      "Couper supprime définitivement le fichier",
-      "Copier est plus rapide que Couper"
-    ],
-    ans: 1,
-    fb: {
-      ok: "Parfait ! Couper (Ctrl+X) déplace le fichier vers le nouvel emplacement. Copier (Ctrl+C) crée un doublon et l'original reste en place.",
-      ko: "Couper (Ctrl+X + Ctrl+V) déplace le fichier. Copier (Ctrl+C + Ctrl+V) crée une copie — l'original reste à sa place."
-    }
-  }
+  { q: "Tu veux ouvrir l'Explorateur de fichiers rapidement sans utiliser la souris. Quel raccourci utilises-tu ?",
+    opts: ["Ctrl + E","Win + E","Alt + F4","Ctrl + F"], ans: 1,
+    fb: { ok: "Exact ! Win + E ouvre l'Explorateur en une fraction de seconde.", ko: "La bonne réponse est Win + E (touche Windows + E)." }},
+  { q: "Tu veux renommer un fichier sans toucher à la souris. Quelle touche appuies-tu ?",
+    opts: ["Entrée","F2","Suppr","F5"], ans: 1,
+    fb: { ok: "Parfait ! F2 active le mode renommage instantanément.", ko: "La bonne réponse est F2. Sélectionne le fichier, appuie F2, tape le nom, Entrée." }},
+  { q: "Ton PC devient soudainement très lent. Quelle est la première chose à faire ?",
+    opts: ["Redémarrer immédiatement","Ouvrir le Gestionnaire des tâches (Ctrl+Shift+Esc)","Appeler un technicien","Désinstaller des logiciels"], ans: 1,
+    fb: { ok: "Très bien ! Ctrl+Shift+Esc donne un diagnostic en temps réel.", ko: "La bonne réponse : Ctrl+Shift+Esc ouvre le Gestionnaire des tâches." }},
+  { q: "Tu veux travailler sur deux fenêtres côte à côte sans les redimensionner. Que fais-tu ?",
+    opts: ["Redimensionner à la main","Win + ← puis Win + → pour coller chaque fenêtre","Impossible sans 2e écran","Minimiser une fenêtre"], ans: 1,
+    fb: { ok: "Excellent ! Les Snap Layouts de Windows 11 divisent l'écran en 2 secondes.", ko: "Win + ← colle à gauche, Win + → à droite — fonction Snap Layouts." }},
+  { q: "Tu veux faire une capture d'écran d'une zone précise. Quel raccourci utilises-tu ?",
+    opts: ["Ctrl + C","Print Screen seul","Win + Shift + S","Alt + Impr. écran"], ans: 2,
+    fb: { ok: "Très bien ! Win + Shift + S ouvre l'outil de capture de zone précise.", ko: "La bonne réponse est Win + Shift + S (Snipping Tool)." }},
+  { q: "Tu cherches un fichier créé la semaine dernière mais tu ne sais plus où il est. Méthode la plus rapide ?",
+    opts: ["Chercher dossier par dossier","Utiliser Win + S et taper le nom","Regarder le Bureau","Regarder Téléchargements"], ans: 1,
+    fb: { ok: "Parfait ! Win + S scanne tous tes dossiers en quelques secondes.", ko: "Win + S ouvre la recherche Windows — la méthode la plus rapide." }},
+  { q: "Tu veux basculer rapidement entre plusieurs fenêtres ouvertes sans la souris. Quel raccourci ?",
+    opts: ["Ctrl + Tab","Alt + Tab","Win + Tab","Ctrl + Alt + Suppr"], ans: 1,
+    fb: { ok: "Exactement ! Alt + Tab est le raccourci universel pour naviguer entre fenêtres.", ko: "La bonne réponse est Alt + Tab — maintiens Alt et appuie Tab." }},
+  { q: "Comment afficher rapidement le Bureau en réduisant toutes les fenêtres ?",
+    opts: ["Ctrl + D","Win + D","Alt + D","Win + M"], ans: 1,
+    fb: { ok: "Correct ! Win + D réduit tout et affiche le Bureau. Re-appuyer restaure.", ko: "La bonne réponse est Win + D. Win + M minimise sans pouvoir restaurer." }},
+  { q: "Tu veux créer un nouveau dossier dans l'Explorateur sans clic droit. Quel raccourci ?",
+    opts: ["Ctrl + N","Ctrl + Shift + N","Alt + N","F7"], ans: 1,
+    fb: { ok: "Très bien ! Ctrl + Shift + N crée un nouveau dossier instantanément.", ko: "La bonne réponse est Ctrl + Shift + N dans l'Explorateur." }},
+  { q: "Quelle est la différence entre Couper+Coller (Ctrl+X/V) et Copier+Coller (Ctrl+C/V) un fichier ?",
+    opts: ["Aucune différence","Couper déplace le fichier, Copier crée un doublon","Couper supprime définitivement","Copier est plus rapide"], ans: 1,
+    fb: { ok: "Parfait ! Couper déplace, Copier duplique — l'original reste en place.", ko: "Couper (Ctrl+X+V) déplace. Copier (Ctrl+C+V) crée une copie, l'original reste." }}
 ];
 
+// ===== ÉTAT =====
 let cur = 0, score = 0, answered = false, user = {};
+let validFields = { prenom: false, nom: false, email: false, whatsapp: false, ville: false };
 
-function startQuiz() {
-  const p = document.getElementById('prenom').value.trim();
-  const e = document.getElementById('email').value.trim();
-  if (!p || !e) { alert('Merci de remplir ton prénom et ton email.'); return; }
-  user = { prenom: p, email: e, whatsapp: document.getElementById('whatsapp').value.trim() };
+// ===== VALIDATION EN TEMPS RÉEL =====
+const emailRegex = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
+// Numéro WhatsApp : + suivi de 7 à 15 chiffres (international)
+const waRegex = /^\+[0-9]{7,15}$/;
+// Bloquer domaines jetables connus
+const blockedDomains = ['guerrillamail','mailinator','tempmail','10minutemail','throwam','yopmail','trashmail','fakeinbox','dispostable','maildrop'];
+
+function isDisposableEmail(email) {
+  const domain = email.split('@')[1]?.toLowerCase() || '';
+  return blockedDomains.some(d => domain.includes(d));
+}
+
+function setFieldState(field, valid, showErr) {
+  const input = document.getElementById('f-' + field);
+  const icon = document.getElementById('icon-' + field === 'whatsapp' ? 'wa' : field);
+  const err = document.getElementById('err-' + (field === 'whatsapp' ? 'wa' : field));
+  if (valid) {
+    input.classList.remove('invalid'); input.classList.add('valid');
+    if (icon) icon.textContent = '✅';
+    if (err) err.classList.remove('show');
+  } else {
+    input.classList.remove('valid');
+    if (showErr) { input.classList.add('invalid'); if (icon) icon.textContent = '❌'; if (err) err.classList.add('show'); }
+    else { input.classList.remove('invalid'); if (icon) icon.textContent = ''; if (err) err.classList.remove('show'); }
+  }
+  validFields[field] = valid;
+  checkForm();
+}
+
+function validatePrenom(blur) {
+  const v = document.getElementById('f-prenom').value.trim();
+  setFieldState('prenom', v.length >= 2, blur && v.length < 2);
+}
+
+function validateNom(blur) {
+  const v = document.getElementById('f-nom').value.trim();
+  setFieldState('nom', v.length >= 2, blur && v.length < 2);
+}
+
+function validateEmail(blur) {
+  const v = document.getElementById('f-email').value.trim();
+  const ok = emailRegex.test(v) && !isDisposableEmail(v);
+  if (!ok && isDisposableEmail(v)) {
+    document.getElementById('err-email').textContent = 'Les adresses email temporaires ne sont pas acceptées. Utilise ton vrai email.';
+  } else {
+    document.getElementById('err-email').textContent = 'Adresse email invalide. Exemple valide : nom@gmail.com';
+  }
+  setFieldState('email', ok, blur && !ok);
+}
+
+function validateWhatsapp(blur) {
+  // Nettoyer les espaces pour la validation
+  const raw = document.getElementById('f-whatsapp').value.trim();
+  const cleaned = raw.replace(/\s/g, '');
+  const ok = waRegex.test(cleaned);
+  setFieldState('whatsapp', ok, blur && !ok);
+}
+
+function validateVille(blur) {
+  const v = document.getElementById('f-ville').value.trim();
+  setFieldState('ville', v.length >= 2, blur && v.length < 2);
+}
+
+function checkForm() {
+  const rgpd = document.getElementById('rgpd').checked;
+  const allValid = Object.values(validFields).every(Boolean);
+  document.getElementById('startBtn').disabled = !(allValid && rgpd);
+}
+
+// ===== SOUMISSION GOOGLE SHEETS =====
+async function submitForm() {
+  const prenom = document.getElementById('f-prenom').value.trim();
+  const nom = document.getElementById('f-nom').value.trim();
+  const email = document.getElementById('f-email').value.trim();
+  const whatsapp = document.getElementById('f-whatsapp').value.trim().replace(/\s/g,'');
+  const ville = document.getElementById('f-ville').value.trim();
+
+  user = { prenom, nom, email, whatsapp, ville };
+
+  // Afficher le spinner
+  document.getElementById('sendingOverlay').classList.add('show');
+
+  try {
+    await fetch(SHEET_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        prenom, nom, email, whatsapp, ville,
+        source: 'Quiz WINCLAIR',
+        date: new Date().toLocaleString('fr-FR'),
+        etape: 'INSCRIPTION'
+      })
+    });
+  } catch (e) {
+    // En mode no-cors, les erreurs réseau sont silencieuses
+    console.log('Données envoyées (mode no-cors)');
+  }
+
+  document.getElementById('sendingOverlay').classList.remove('show');
   show('s-quiz');
-  document.getElementById('progressWrap').style.display = 'block';
+  document.getElementById('pWrap').style.display = 'block';
   renderQ();
 }
 
+// ===== QUIZ =====
 function show(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
@@ -941,12 +990,12 @@ function renderQ() {
   q.opts.forEach((o, i) => {
     const d = document.createElement('div');
     d.className = 'option';
-    d.innerHTML = `<div class="opt-letter">${L[i]}</div><div class="opt-text">${o}</div>`;
+    d.innerHTML = `<div class="opt-l">${L[i]}</div><div class="opt-t">${o}</div>`;
     d.onclick = () => pick(i);
     wrap.appendChild(d);
   });
 
-  document.getElementById('fbBox').className = 'feedback-box';
+  document.getElementById('fbBox').className = 'fb-box';
   document.getElementById('fbBox').textContent = '';
   const nb = document.getElementById('nextBtn');
   nb.disabled = true;
@@ -972,12 +1021,12 @@ function pick(i) {
     document.getElementById('scoreLive').textContent = score;
     opts[i].classList.add('correct');
     fb.textContent = '✓ ' + q.fb.ok;
-    fb.className = 'feedback-box ok';
+    fb.className = 'fb-box ok';
   } else {
     opts[i].classList.add('wrong');
     opts[q.ans].classList.add('correct');
     fb.textContent = '✗ ' + q.fb.ko;
-    fb.className = 'feedback-box ko';
+    fb.className = 'fb-box ko';
   }
   document.getElementById('nextBtn').disabled = false;
 }
@@ -988,52 +1037,49 @@ function nextQ() {
   else showResult();
 }
 
-function showResult() {
+// ===== RÉSULTATS =====
+async function showResult() {
   show('s-result');
-  document.getElementById('progressWrap').style.display = 'none';
+  document.getElementById('pWrap').style.display = 'none';
+
   const total = QS.length;
   const pct = Math.round((score/total)*100);
   const wrong = total - score;
 
   document.getElementById('scoreDisp').textContent = score+'/'+total;
-  document.getElementById('sCorrect').textContent = score;
-  document.getElementById('sWrong').textContent = wrong;
-  document.getElementById('sPct').textContent = pct+'%';
+  document.getElementById('sC').textContent = score;
+  document.getElementById('sW').textContent = wrong;
+  document.getElementById('sP').textContent = pct+'%';
 
-  // Arc
+  // Arc animé
   const arc = document.getElementById('scoreArc');
-  const circ = 326.7;
   setTimeout(() => {
     arc.style.transition = 'stroke-dashoffset 1.4s cubic-bezier(0.4,0,0.2,1)';
-    arc.style.strokeDashoffset = circ - (pct/100)*circ;
+    arc.style.strokeDashoffset = 326.7 - (pct/100)*326.7;
   }, 300);
 
-  let badge, badgeClass, desc, ctaH, ctaP;
+  let badge, badgeClass, desc, ctaH, ctaP, niveau;
 
   if (pct <= 30) {
-    badge = "Niveau Débutant";
-    badgeClass = "nb-debutant";
+    niveau = 'Débutant'; badge = '🔴 Niveau Débutant'; badgeClass = 'nb-d';
     desc = `${user.prenom}, tu utilises Windows mais sans vraiment le maîtriser. Tu passes beaucoup de temps sur des tâches simples. Avec une méthode claire, tu peux rapidement changer ça.`;
-    ctaH = "Tu as besoin d'une méthode claire — maintenant.";
-    ctaP = "WINCLAIR part de zéro et te mène au niveau professionnel en 15 modules. Profite de l'offre à 4 500 FCFA avant qu'elle expire.";
+    ctaH = 'Tu as besoin d\'une méthode claire — maintenant.';
+    ctaP = 'WINCLAIR part de zéro et te mène au niveau professionnel en 15 modules. Profite de l\'offre à 4 500 FCFA avant qu\'elle expire.';
   } else if (pct <= 60) {
-    badge = "Niveau Intermédiaire";
-    badgeClass = "nb-intermediaire";
-    desc = `${user.prenom}, tu as les bases mais il te manque des automatismes. En entretien ou au bureau, ces lacunes se voient. Quelques jours de pratique ciblée peuvent tout changer.`;
-    ctaH = "Tu es proche — il te manque juste les automatismes.";
-    ctaP = "WINCLAIR comblera exactement ces lacunes. 15 modules, 8 jours, depuis ton téléphone. À 4 500 FCFA seulement.";
+    niveau = 'Intermédiaire'; badge = '🟡 Niveau Intermédiaire'; badgeClass = 'nb-i';
+    desc = `${user.prenom}, tu as les bases mais il te manque des automatismes. En entretien ou au bureau, ces lacunes se voient.`;
+    ctaH = 'Tu es proche — il te manque juste les automatismes.';
+    ctaP = 'WINCLAIR comblera exactement ces lacunes. 15 modules, 8 jours, depuis ton téléphone. À 4 500 FCFA seulement.';
   } else if (pct <= 80) {
-    badge = "Niveau Avancé";
-    badgeClass = "nb-avance";
+    niveau = 'Avancé'; badge = '🟢 Niveau Avancé'; badgeClass = 'nb-a';
     desc = `Très bien ${user.prenom} ! Tu maîtrises les fondamentaux. Pour devenir la référence informatique de ton bureau, il reste quelques points à affiner.`;
-    ctaH = "Tu es bon — WINCLAIR te rendra excellent.";
-    ctaP = "Les 15 modules couvrent des fonctionnalités avancées que même les utilisateurs confirmés ne connaissent pas encore.";
+    ctaH = 'Tu es bon — WINCLAIR te rendra excellent.';
+    ctaP = 'Les 15 modules couvrent des fonctionnalités avancées que même les utilisateurs confirmés ne connaissent pas.';
   } else {
-    badge = "Niveau Expert";
-    badgeClass = "nb-expert";
-    desc = `Impressionnant ${user.prenom} ! Tu maîtrises Windows 11 comme un professionnel. Tu peux devenir une référence et même enseigner ces compétences autour de toi.`;
-    ctaH = "Tu es expert — partage cette formation.";
-    ctaP = "WINCLAIR peut transformer tes collègues et proches comme il t'a transformé. Offre-leur l'accès à 4 500 FCFA.";
+    niveau = 'Expert'; badge = '🔵 Niveau Expert'; badgeClass = 'nb-e';
+    desc = `Impressionnant ${user.prenom} ! Tu maîtrises Windows 11 comme un professionnel. Tu peux devenir une référence et enseigner ces compétences.`;
+    ctaH = 'Tu es expert — partage cette formation.';
+    ctaP = 'WINCLAIR peut transformer tes collègues et proches. Offre-leur l\'accès à 4 500 FCFA.';
   }
 
   const nb = document.getElementById('niveauBadge');
@@ -1042,10 +1088,38 @@ function showResult() {
   document.getElementById('resultDesc').textContent = desc;
   document.getElementById('ctaH').textContent = ctaH;
   document.getElementById('ctaP').textContent = ctaP;
+
+  // Envoyer le résultat dans Google Sheets
+  try {
+    await fetch(SHEET_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        prenom: user.prenom, nom: user.nom,
+        email: user.email, whatsapp: user.whatsapp, ville: user.ville,
+        score: score + '/10', pourcentage: pct + '%', niveau,
+        source: 'Quiz WINCLAIR',
+        date: new Date().toLocaleString('fr-FR'),
+        etape: 'RESULTAT'
+      })
+    });
+  } catch(e) { console.log('Résultat envoyé'); }
 }
 
 function restart() {
   cur = 0; score = 0; answered = false;
+  validFields = { prenom: false, nom: false, email: false, whatsapp: false, ville: false };
+  document.getElementById('startBtn').disabled = true;
+  document.getElementById('rgpd').checked = false;
+  ['prenom','nom','email','whatsapp','ville'].forEach(f => {
+    const input = document.getElementById('f-' + f);
+    if (input) { input.value = ''; input.className = ''; }
+    const icon = document.getElementById('icon-' + (f === 'whatsapp' ? 'wa' : f));
+    if (icon) icon.textContent = '';
+    const err = document.getElementById('err-' + (f === 'whatsapp' ? 'wa' : f));
+    if (err) err.classList.remove('show');
+  });
   show('s-capture');
 }
 </script>
